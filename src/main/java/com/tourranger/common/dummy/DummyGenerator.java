@@ -38,3 +38,4 @@ public class DummyGenerator implements CommandLineRunner {
 		}
 	}
 }
+
