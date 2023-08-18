@@ -9,9 +9,9 @@ name: develop CI check
 
 on:
   push:
-    branches: [ "dev" ]
+    branches: [ "develop" ]
   pull_request:
-    branches: [ "dev" ]
+    branches: [ "develop" ]
 
 permissions:
   checks: write
