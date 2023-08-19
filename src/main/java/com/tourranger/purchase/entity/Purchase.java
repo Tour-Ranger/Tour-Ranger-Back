@@ -1,4 +1,4 @@
-package com.tourranger.order.entity;
+package com.tourranger.purchase.entity;
 
 import com.tourranger.item.entity.Item;
 import com.tourranger.user.entity.User;
