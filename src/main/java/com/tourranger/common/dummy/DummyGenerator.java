@@ -13,7 +13,7 @@ public class DummyGenerator implements CommandLineRunner {
 	private final Faker faker;
 
 	// 상수
-	private static final int COUNT = 10;
+	public static final int COUNT = 10;
 
 	// Faker 주입
 	@Autowired
@@ -29,7 +29,7 @@ public class DummyGenerator implements CommandLineRunner {
 	}
 
 	// User 더미데이터 만들기
-	private void dummyUserGenerator() {
+	public void dummyUserGenerator() {
 		for (int i = 0; i < COUNT; i++) {
 			String email = faker.internet().emailAddress();
 
