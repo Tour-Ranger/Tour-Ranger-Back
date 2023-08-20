@@ -25,7 +25,7 @@ public class DummyGenerator implements CommandLineRunner {
 	// 실행
 	@Override
 	public void run(String... args) throws Exception {
-		dummyUserGenerator();
+//		dummyUserGenerator();
 	}
 
 	// User 더미데이터 만들기
