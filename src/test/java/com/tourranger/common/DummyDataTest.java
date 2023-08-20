@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -32,11 +33,22 @@ public class DummyDataTest {
 		List<User> userList2 = userRepository.findAll();
 
 		// dummyItemGenerator Test
-		List<Item> itemList1 = itemRepository.findAll();
 		dummyGenerator.dummyItemGenerator();
-		List<Item> itemList2 = itemRepository.findAll();
+		Optional<Item> item = itemRepository.findById(1L);
+		String name = "5박 6일 유럽 여행 초특가 할인!";
+		Long price = 3_000_000L; // 3백만원
+		Long discountPrice = 100L; // 백원
+		Long quantity = 30L; // 30개
+		Long period = 5L; // 5박 6일
 
+		// User는 정해진 개수만큼(COUNT) 잘 생성되었는가?
 		assertEquals(DummyGenerator.COUNT, userList2.size() - userList1.size());
-		assertEquals(1, itemList2.size() - itemList1.size());
+
+		// item은 정해준 값으로 잘 생성되었는가?
+		assertEquals(name, item.get().getName());
+		assertEquals(price, item.get().getPrice());
+		assertEquals(discountPrice, item.get().getDiscountPrice());
+		assertEquals(quantity, item.get().getQuantity());
+		assertEquals(period, item.get().getPeriod());
 	}
 }
