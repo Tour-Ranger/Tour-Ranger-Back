@@ -16,6 +16,7 @@ import java.util.List;
 @AllArgsConstructor
 @Builder
 public class Image {
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
@@ -23,8 +24,17 @@ public class Image {
 	@Column(nullable = false)
 	private String url;
 
+	@Builder.Default
 	@OneToMany(mappedBy = "image", orphanRemoval = true)
 	private List<ItemImage> itemImageList = new ArrayList<>();
+
+	public Image(String url){
+		this.url = url;
+	}
+
+	public void setUrl(String url) {
+		this.url = url;
+	}
 }
 
 
