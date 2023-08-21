@@ -1,10 +1,15 @@
 package com.tourranger.purchase.controller;
 
+import com.tourranger.common.dto.ApiResponseDto;
+import com.tourranger.purchase.dto.PurchaseRequestDto;
 import com.tourranger.purchase.service.PurchaseService;
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
@@ -12,4 +17,13 @@ import org.springframework.web.bind.annotation.RestController;
 @Tag(name = "Purchase API", description = "Purchase에 관련된 API 정보를 담고 있습니다.")
 public class PurchaseController {
 	private final PurchaseService purchaseService;
+
+	@Operation(summary = "상품 주문", description = "PurchaseRequestDto로 유저의 정보를 받아와서 주문을 완료합니다.")
+	@PostMapping("/purchases/{itemId}")
+	// @Valid 안 됐을 때 예외처리 되는지 확인
+	public ResponseEntity<ApiResponseDto> purchaseItem(@PathVariable Long itemId,
+													   @Valid @RequestBody PurchaseRequestDto requestDto){
+		purchaseService.purchaseItem(itemId,requestDto);
+		return ResponseEntity.ok().body(new ApiResponseDto(HttpStatus.OK.value(), "주문 완료"));
+	}
 }
