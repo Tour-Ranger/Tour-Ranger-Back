@@ -1,5 +1,7 @@
 package com.tourranger.image.controller;
 
+import java.io.IOException;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -11,7 +13,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.tourranger.common.dto.ApiResponseDto;
 import com.tourranger.image.Dto.ImageRequestDto;
@@ -47,8 +51,8 @@ public class ImageController {
 	@Operation(summary = "이미지파일 업로드", description = "이미지 url을 저장합니다.")
 	public ResponseEntity<ImageResponseDto> createImage(
 		@Parameter(description = "이미지파일 url정보") @RequestBody ImageRequestDto requestDto
-	) {
-		return ResponseEntity.status(HttpStatus.CREATED).body(imageService.createImage(requestDto.getUrl()));
+	) throws IOException {
+		return ResponseEntity.status(HttpStatus.CREATED).body(imageService.createImage(requestDto.getMultipartFile()));
 	}
 
 	@ResponseBody
@@ -58,7 +62,7 @@ public class ImageController {
 		@Parameter(name = "imageId", description = "선택한 이미지 id", in = ParameterIn.PATH) @PathVariable Long imageId,
 		@Parameter(description = "변경할 이미지파일 url정보") @RequestBody ImageRequestDto requestDto
 	) {
-		return ResponseEntity.status(HttpStatus.OK).body(imageService.updateImage(imageId, requestDto.getUrl()));
+		return ResponseEntity.status(HttpStatus.OK).body(imageService.updateImage(imageId, requestDto.getMultipartFile()));
 	}
 
 	@ResponseBody
