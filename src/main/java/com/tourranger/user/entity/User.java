@@ -1,6 +1,6 @@
 package com.tourranger.user.entity;
 
-import com.tourranger.order.entity.Purchase;
+import com.tourranger.purchase.entity.Purchase;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
