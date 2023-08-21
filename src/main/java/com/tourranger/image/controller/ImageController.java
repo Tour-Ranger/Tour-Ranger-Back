@@ -40,34 +40,26 @@ public class ImageController {
 
 	@GetMapping("/images/{imageId}")
 	@Operation(summary = "이미지파일 조회", description = "선택한 이미지 url을 조회합니다.")
-	public ResponseEntity<ImageResponseDto> getImage(
-		@Parameter(name = "imageId", description = "선택한 이미지 id", in = ParameterIn.PATH) @PathVariable Long imageId
-	) {
+	public ResponseEntity<ImageResponseDto> getImage(@PathVariable Long imageId) {
 		return ResponseEntity.status(HttpStatus.OK).body(imageService.getImage(imageId));
 	}
 
 	@PostMapping(value = "/images", produces = MediaType.APPLICATION_JSON_VALUE)
 	@Operation(summary = "이미지파일 업로드", description = "이미지 url을 저장합니다.")
-	public ResponseEntity<ImageResponseDto> createImage(
-		@Parameter(description = "이미지파일 url정보") @RequestBody ImageRequestDto requestDto
-	) throws IOException {
+	public ResponseEntity<ImageResponseDto> createImage(@RequestBody ImageRequestDto requestDto) throws IOException {
 		return ResponseEntity.status(HttpStatus.CREATED).body(imageService.createImage(requestDto.getMultipartFile()));
 	}
 
 	@PutMapping("/images/{imageId}")
 	@Operation(summary = "이미지파일 변경", description = "선택한 id의 이미지 url을 변경합니다.")
-	public ResponseEntity<ImageResponseDto> updateImage(
-		@Parameter(name = "imageId", description = "선택한 이미지 id", in = ParameterIn.PATH) @PathVariable Long imageId,
-		@Parameter(description = "변경할 이미지파일 url정보") @RequestBody ImageRequestDto requestDto
+	public ResponseEntity<ImageResponseDto> updateImage(@PathVariable Long imageId,@RequestBody ImageRequestDto requestDto
 	) {
 		return ResponseEntity.status(HttpStatus.OK).body(imageService.updateImage(imageId, requestDto.getMultipartFile()));
 	}
 
 	@DeleteMapping("/images/{imageId}")
 	@Operation(summary = "이미지파일 삭제", description = "선택한 id의 이미지를 삭제합니다.")
-	public ResponseEntity<ApiResponseDto> deleteImage(
-		@Parameter(name = "imageId", description = "선택한 이미지 id", in = ParameterIn.PATH) @PathVariable Long imageId
-	) {
+	public ResponseEntity<ApiResponseDto> deleteImage(@PathVariable Long imageId) {
 		return ResponseEntity.status(HttpStatus.OK).body(imageService.deleteImage(imageId));
 
 	}
