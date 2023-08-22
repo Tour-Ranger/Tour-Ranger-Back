@@ -1,5 +1,8 @@
 package com.tourranger.purchase.service;
 
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import com.tourranger.common.error.CustomErrorCode;
 import com.tourranger.common.exception.CustomException;
 import com.tourranger.item.entity.Item;
@@ -9,9 +12,8 @@ import com.tourranger.purchase.entity.Purchase;
 import com.tourranger.purchase.repository.PurchaseRepository;
 import com.tourranger.user.entity.User;
 import com.tourranger.user.service.UserServiceImpl;
+
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
