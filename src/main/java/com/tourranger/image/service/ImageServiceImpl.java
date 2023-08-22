@@ -100,7 +100,7 @@ public class ImageServiceImpl implements ImageService {
 	}
 
 	// 이미지 객체를 repository에서 찾는 메서드
-	// id로 조회했을 때, 존재하지 않는 이미지인 경우 IllegalException 발생
+	// id로 조회했을 때, 존재하지 않는 이미지인 경우 Exception 발생
 	private Image findImage(Long imageId) {
 		return imageRepository.findById(imageId).orElseThrow(() ->
 			new CustomException(CustomErrorCode.IMAGE_NOT_FOUND, null)
