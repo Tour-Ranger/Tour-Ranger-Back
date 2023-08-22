@@ -57,7 +57,6 @@ public class FileStore {
 	// fullPath 만들기
 	public String getFullPath(String filename) {
 		String fullPath = uploadPath + filename;
-		System.out.println("Full Path: " + fullPath); // 디버깅 로그 추가
 		return fullPath;
 	}
 
