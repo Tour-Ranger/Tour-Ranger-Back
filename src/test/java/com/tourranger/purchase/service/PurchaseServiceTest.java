@@ -1,7 +1,6 @@
-package com.tourranger.purchase;
+package com.tourranger.purchase.service;
 
 import com.tourranger.item.entity.Item;
-import com.tourranger.purchase.service.PurchaseService;
 import com.tourranger.user.entity.User;
 import com.tourranger.user.repository.UserRepository;
 import org.junit.jupiter.api.*;
