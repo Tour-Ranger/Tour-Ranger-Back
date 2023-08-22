@@ -11,12 +11,14 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.tourranger.common.dto.ApiResponseDto;
+import com.tourranger.common.error.CustomErrorCode;
+import com.tourranger.common.exception.CustomException;
 import com.tourranger.common.file.FileStore;
 import com.tourranger.image.Dto.ImageResponseDto;
 import com.tourranger.image.entity.Image;
 import com.tourranger.image.repository.ImageRepository;
 import com.tourranger.item.entity.Item;
-import com.tourranger.item.repository.ItemRepository;
+import com.tourranger.item.service.ItemServiceImpl;
 
 import lombok.RequiredArgsConstructor;
 
@@ -24,7 +26,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class ImageServiceImpl implements ImageService {
 	private final ImageRepository imageRepository;
-	private final ItemRepository itemRepository;
+	private final ItemServiceImpl itemService;
 	private final FileStore fileStore;
 
 	//이미지를 조회하는 메서드
@@ -40,7 +42,7 @@ public class ImageServiceImpl implements ImageService {
 	@Transactional(readOnly = true)
 	public List<ImageResponseDto> getImageList(Long itemId) {
 		//itemId로 상품 찾기
-		Item item = findItem(itemId);
+		Item item = itemService.findItem(itemId);
 		//상품에 속한 이미지 전체 반환
 		return imageRepository.findAllByItem(item).stream().map(ImageResponseDto::new).toList();
 	}
@@ -50,7 +52,7 @@ public class ImageServiceImpl implements ImageService {
 	@Transactional
 	public List<ImageResponseDto> createImage(Long itemId, List<MultipartFile> multipartFileList) throws IOException {
 		//이미지 등록할 상품
-		Item item = findItem(itemId);
+		Item item = itemService.findItem(itemId);
 		//이미지 파일을 지정한 경로에 저장
 		List<String> saveFileNameList = fileStore.saveFiles(multipartFileList);
 
@@ -101,15 +103,9 @@ public class ImageServiceImpl implements ImageService {
 	// id로 조회했을 때, 존재하지 않는 이미지인 경우 IllegalException 발생
 	private Image findImage(Long imageId) {
 		return imageRepository.findById(imageId).orElseThrow(() ->
-			new IllegalArgumentException("선택한 id의 이미지는 존재하지 않습니다.")
+			new CustomException(CustomErrorCode.IMAGE_NOT_FOUND, null)
+
 		);
 	}
 
-	//item을 repository에서 찾는 메서드
-	// id로 조회했을 때, 존재하지 않는 item인 경우 IllegalException 발생
-	private Item findItem(Long id) {
-		return itemRepository.findById(id).orElseThrow(() ->
-			new IllegalArgumentException("선택한 id의 상품은 존재하지 않습니다.")
-		);
-	}
 }
