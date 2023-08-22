@@ -10,6 +10,9 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.tourranger.common.error.CustomErrorCode;
+import com.tourranger.common.exception.CustomException;
+
 @Component
 public class FileStore {
 
@@ -21,7 +24,7 @@ public class FileStore {
 		//이미지 파일만 업로드 가능
 		if (multipartFile.getContentType().startsWith("image") == false) {
 			//이미지가 아닌 경우, Exception 처리
-			throw new IllegalArgumentException("이미지 파일만 업로드할 수 있습니다.");
+			throw new CustomException(CustomErrorCode.TYPE_NOT_IMAGE, null);
 		}
 		//IE나 Edge는 전체 경로가 들어오므로, 실제 파일 이름을 불러오는 메서드 사용
 		String originalFileName = multipartFile.getOriginalFilename();
@@ -32,10 +35,11 @@ public class FileStore {
 		return saveFileName;
 	}
 
-	public List<String> saveFiles(List<MultipartFile> multipartFileList) throws IOException{
+	//여러 개의 이미지파일 업로드 저장
+	public List<String> saveFiles(List<MultipartFile> multipartFileList) throws IOException {
 		List<String> saveFileList = new ArrayList<>();
-		for (MultipartFile multipartFile : multipartFileList){
-			if(!multipartFile.isEmpty()){
+		for (MultipartFile multipartFile : multipartFileList) {
+			if (!multipartFile.isEmpty()) {
 				saveFileList.add(saveFile(multipartFile));
 			}
 		}
