@@ -38,30 +38,30 @@ public class ImageController {
 		return ResponseEntity.status(HttpStatus.OK).body(imageService.getImage(imageId));
 	}
 
-	@GetMapping("/images")
-	@Operation(summary = "전체 이미지파일 조회", description = "전체 이미지 url을 조회합니다.")
-	public ResponseEntity<List<ImageResponseDto>> getImageList() {
-		return ResponseEntity.status(HttpStatus.OK).body(imageService.getImageList());
-	}
-
-	@PostMapping(value = "/images")
-	@Operation(summary = "이미지파일 업로드", description = "이미지 url을 저장합니다.")
-	public ResponseEntity<ImageResponseDto> createImage(
-		@RequestPart("multipartFile") MultipartFile multipartFile) throws IOException {
-		return ResponseEntity.status(HttpStatus.CREATED).body(imageService.createImage(multipartFile));
-	}
-
 	@PutMapping("/images/{imageId}")
-	@Operation(summary = "이미지파일 변경", description = "선택한 id의 이미지 url을 변경합니다.")
+	@Operation(summary = "선택 이미지파일 변경", description = "선택한 id의 이미지 url을 변경합니다.")
 	public ResponseEntity<ImageResponseDto> updateImage(@PathVariable Long imageId,
 		@RequestPart("multipartFile") MultipartFile multipartFile) throws IOException {
 		return ResponseEntity.status(HttpStatus.OK).body(imageService.updateImage(imageId, multipartFile));
 	}
 
 	@DeleteMapping("/images/{imageId}")
-	@Operation(summary = "이미지파일 삭제", description = "선택한 id의 이미지를 삭제합니다.")
+	@Operation(summary = "선택 이미지파일 삭제", description = "선택한 id의 이미지를 삭제합니다.")
 	public ResponseEntity<ApiResponseDto> deleteImage(@PathVariable Long imageId) {
 		return ResponseEntity.status(HttpStatus.OK).body(imageService.deleteImage(imageId));
+	}
 
+	@GetMapping("items/{itemId}/images")
+	@Operation(summary = "상품에 속하는 전체 이미지파일 조회", description = "상품에 속하는 전체 이미지 url을 조회합니다.")
+	public ResponseEntity<List<ImageResponseDto>> getImageList(@PathVariable Long itemId) {
+		return ResponseEntity.status(HttpStatus.OK).body(imageService.getImageList(itemId));
+	}
+
+	@PostMapping(value = "/items/{itemId}/images")
+	@Operation(summary = "이미지파일 업로드", description = "이미지 url을 저장합니다.")
+	public ResponseEntity<List<ImageResponseDto>> createImage(
+		@RequestPart("multipartFile") List<MultipartFile> multipartFileList,
+		@PathVariable Long itemId) throws IOException {
+		return ResponseEntity.status(HttpStatus.CREATED).body(imageService.createImage(itemId, multipartFileList));
 	}
 }
