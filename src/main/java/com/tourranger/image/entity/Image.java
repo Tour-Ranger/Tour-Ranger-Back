@@ -26,7 +26,7 @@ public class Image {
 	@JoinColumn(name = "item_id", nullable = false)
 	private Item item;
 
-	public Image(Item item, String url){
+	public Image(Item item, String url) {
 		this.item = item;
 		this.url = url;
 	}
