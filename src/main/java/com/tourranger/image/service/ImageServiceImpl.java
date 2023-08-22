@@ -29,7 +29,7 @@ public class ImageServiceImpl implements ImageService {
 	@Transactional(readOnly = true)
 	public Resource getImage(Long imageId) throws MalformedURLException {
 		Image targetImage = findImage(imageId);
-		return new UrlResource("file:"+fileStore.getFullPath(targetImage.getUrl()));
+		return new UrlResource("file:" + fileStore.getFullPath(targetImage.getUrl()));
 	}
 
 	//이미지 전체를 조회하는 메서드
@@ -66,7 +66,6 @@ public class ImageServiceImpl implements ImageService {
 		return new ImageResponseDto(targetImage);
 	}
 
-
 	//선택한 이미지를 삭제하는 메서드
 	@Override
 	@Transactional
@@ -80,8 +79,6 @@ public class ImageServiceImpl implements ImageService {
 		return new ApiResponseDto(200, "이미지 삭제 완료");
 	}
 
-
-
 	// 이미지 객체를 repository에서 찾는 메서드
 	// id로 조회했을 때, 존재하지 않는 이미지인 경우 IllegalException 발생
 	private Image findImage(Long imageId) {
@@ -89,8 +86,5 @@ public class ImageServiceImpl implements ImageService {
 			new IllegalArgumentException("선택한 id의 이미지는 존재하지 않습니다.")
 		);
 	}
-
-
-
 
 }

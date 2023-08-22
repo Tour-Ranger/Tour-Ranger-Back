@@ -17,7 +17,7 @@ public class FileStore {
 	//파일 저장 후 저장된 파일경로+파일명을 반환하는 메서드
 	public String saveFile(MultipartFile multipartFile) throws IOException {
 		//이미지 파일만 업로드 가능
-		if(multipartFile.getContentType().startsWith("image")==false){
+		if (multipartFile.getContentType().startsWith("image") == false) {
 			//이미지가 아닌 경우, Exception 처리
 			throw new IllegalArgumentException("이미지 파일만 업로드할 수 있습니다.");
 		}
@@ -32,7 +32,7 @@ public class FileStore {
 	}
 
 	//파일 삭제 메서드
-	public void deleteFile(String fileName){
+	public void deleteFile(String fileName) {
 		File file = new File(getFullPath(fileName));
 
 		if (file.exists()) {
@@ -47,6 +47,7 @@ public class FileStore {
 		String uuid = UUID.randomUUID().toString();
 		return uuid + "." + ext;
 	}
+
 	// 확장자명 구하기
 	private String extractExt(String originalFilename) {
 		int pos = originalFilename.lastIndexOf(".");
@@ -57,7 +58,7 @@ public class FileStore {
 	public String getFullPath(String filename) {
 		String fullPath = uploadPath + filename;
 		System.out.println("Full Path: " + fullPath); // 디버깅 로그 추가
-		return  fullPath;
+		return fullPath;
 	}
 
 }

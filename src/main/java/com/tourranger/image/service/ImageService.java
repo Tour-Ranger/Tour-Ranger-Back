@@ -15,7 +15,7 @@ public interface ImageService {
 	/**
 	 *
 	 * @param imageId 이미지id
-	 * @return 선택한 id에 해당하는 이미지
+	 * @return 선택한 id에 해당하는 이미지 resource
 	 */
 	Resource getImage(Long imageId) throws MalformedURLException;
 
