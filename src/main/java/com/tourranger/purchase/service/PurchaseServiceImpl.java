@@ -1,40 +1,36 @@
 package com.tourranger.purchase.service;
 
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import com.tourranger.common.error.CustomErrorCode;
 import com.tourranger.common.exception.CustomException;
 import com.tourranger.item.entity.Item;
-import com.tourranger.item.repository.ItemRepository;
+import com.tourranger.item.service.ItemServiceImpl;
 import com.tourranger.purchase.dto.PurchaseRequestDto;
 import com.tourranger.purchase.entity.Purchase;
 import com.tourranger.purchase.repository.PurchaseRepository;
 import com.tourranger.user.entity.User;
 import com.tourranger.user.service.UserServiceImpl;
+
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
 public class PurchaseServiceImpl implements PurchaseService {
 	private final UserServiceImpl userService;
-	private final ItemRepository itemRepository;
+	private final ItemServiceImpl itemService;
 	private final PurchaseRepository purchaseRepository;
 
 	@Override
 	@Transactional
 	public void purchaseItem(Long itemId, PurchaseRequestDto requestDto) {
 		User user = userService.findUser(requestDto.getEmail());
-		Item item = findItem(itemId);
+		Item item = itemService.findItem(itemId);
 		checkStock(item);
 		Purchase purchase = Purchase.builder().item(item).user(user).build();
 		purchaseRepository.save(purchase);
 		item.sellOne();
-	}
-
-	private Item findItem(Long id) {
-		return itemRepository.findById(id).orElseThrow(() ->
-				new CustomException(CustomErrorCode.ITEM_NOT_FOUND, null)
-		);
 	}
 
 	private void checkStock(Item item) {

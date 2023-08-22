@@ -23,6 +23,7 @@ public class User {
 	@Column(nullable = false)
 	private String email;
 
+	@Builder.Default
 	@OneToMany(mappedBy = "user", orphanRemoval = true)
 	private List<Purchase> purchaseList = new ArrayList<>();
 }
