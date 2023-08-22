@@ -36,6 +36,7 @@ public class Item {
 	@Column(nullable = false)
 	private Long period;
 
+	@Builder.Default
 	@OneToMany(mappedBy = "item", orphanRemoval = true)
 	private List<Image> ImageList = new ArrayList<>();
 
