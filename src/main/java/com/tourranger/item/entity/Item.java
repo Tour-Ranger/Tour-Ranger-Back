@@ -42,4 +42,8 @@ public class Item {
 	@Builder.Default
 	@OneToMany(mappedBy = "item", orphanRemoval = true)
 	private List<Purchase> purchaseList = new ArrayList<>();
+
+	public void sellOne() {
+		this.quantity--;
+	}
 }
