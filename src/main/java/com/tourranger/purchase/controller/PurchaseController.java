@@ -20,10 +20,9 @@ public class PurchaseController {
 
 	@Operation(summary = "상품 주문", description = "PurchaseRequestDto로 유저의 정보를 받아와서 주문을 완료합니다.")
 	@PostMapping("/purchases/{itemId}")
-	// @Valid 안 됐을 때 예외처리 되는지 확인
 	public ResponseEntity<ApiResponseDto> purchaseItem(@PathVariable Long itemId,
-													   @Valid @RequestBody PurchaseRequestDto requestDto){
-		purchaseService.purchaseItem(itemId,requestDto);
+													   @Valid @RequestBody PurchaseRequestDto requestDto) {
+		purchaseService.purchaseItem(itemId, requestDto);
 		return ResponseEntity.ok().body(new ApiResponseDto(HttpStatus.OK.value(), "주문 완료"));
 	}
 }
