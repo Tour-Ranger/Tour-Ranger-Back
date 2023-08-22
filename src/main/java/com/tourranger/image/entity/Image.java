@@ -1,14 +1,12 @@
 package com.tourranger.image.entity;
 
-import com.tourranger.itemImage.entity.ItemImage;
+import com.tourranger.item.entity.Item;
+
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 @Getter
@@ -24,11 +22,12 @@ public class Image {
 	@Column(nullable = false)
 	private String url;
 
-	@Builder.Default
-	@OneToMany(mappedBy = "image", orphanRemoval = true)
-	private List<ItemImage> itemImageList = new ArrayList<>();
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "item_id", nullable = false)
+	private Item item;
 
-	public Image(String url){
+	public Image(Item item, String url){
+		this.item = item;
 		this.url = url;
 	}
 
