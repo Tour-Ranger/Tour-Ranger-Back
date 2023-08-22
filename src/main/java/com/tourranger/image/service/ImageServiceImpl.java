@@ -15,6 +15,8 @@ import com.tourranger.common.file.FileStore;
 import com.tourranger.image.Dto.ImageResponseDto;
 import com.tourranger.image.entity.Image;
 import com.tourranger.image.repository.ImageRepository;
+import com.tourranger.item.entity.Item;
+import com.tourranger.item.repository.ItemRepository;
 
 import lombok.RequiredArgsConstructor;
 
@@ -22,6 +24,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class ImageServiceImpl implements ImageService {
 	private final ImageRepository imageRepository;
+	private final ItemRepository itemRepository;
 	private final FileStore fileStore;
 
 	//이미지를 조회하는 메서드
@@ -32,25 +35,40 @@ public class ImageServiceImpl implements ImageService {
 		return new UrlResource("file:" + fileStore.getFullPath(targetImage.getUrl()));
 	}
 
-	//이미지 전체를 조회하는 메서드
+	//아이템에 속한 이미지 전체를 조회하는 메서드
 	@Override
 	@Transactional(readOnly = true)
-	public List<ImageResponseDto> getImageList() {
-		return imageRepository.findAll().stream().map(ImageResponseDto::new).toList();
+	public List<ImageResponseDto> getImageList(Long itemId) {
+		//itemId로 상품 찾기
+		Item item = findItem(itemId);
+		//상품에 속한 이미지 전체 반환
+		return imageRepository.findAllByItem(item).stream().map(ImageResponseDto::new).toList();
 	}
 
-	//이미지를 추가하는 메서드
+	//상품에 이미지(여러 개)를 추가하는 메서드
 	@Override
 	@Transactional
-	public ImageResponseDto createImage(MultipartFile multipartFile) throws IOException {
+	public List<ImageResponseDto> createImage(Long itemId, List<MultipartFile> multipartFileList) throws IOException {
+		//이미지 등록할 상품
+		Item item = findItem(itemId);
 		//이미지 파일을 지정한 경로에 저장
-		String saveFileName = fileStore.saveFile(multipartFile);
+		List<String> saveFileNameList = fileStore.saveFiles(multipartFileList);
+
 		//DB에 정보 저장
-		Image image = new Image(saveFileName);
-		imageRepository.save(image);
-		return new ImageResponseDto(image);
+		//이미지 객체 리스트 생성
+		List<Image> images = saveFileNameList.stream()
+			.map(saveFileName -> new Image(item, saveFileName)) //SaveFileName을 토대로 이미지객체로 변환
+			.toList();
+		//모두 저장
+		imageRepository.saveAll(images);
+
+		//List<ImageResponseDto>로 결과 반환
+		return images.stream()
+			.map(ImageResponseDto::new)
+			.toList();
 	}
 
+	//선택한 이미지 변경하기
 	@Override
 	@Transactional
 	public ImageResponseDto updateImage(Long imageId, MultipartFile multipartFile) throws IOException {
@@ -87,4 +105,11 @@ public class ImageServiceImpl implements ImageService {
 		);
 	}
 
+	//item을 repository에서 찾는 메서드
+	// id로 조회했을 때, 존재하지 않는 item인 경우 IllegalException 발생
+	private Item findItem(Long id) {
+		return itemRepository.findById(id).orElseThrow(() ->
+			new IllegalArgumentException("선택한 id의 상품은 존재하지 않습니다.")
+		);
+	}
 }

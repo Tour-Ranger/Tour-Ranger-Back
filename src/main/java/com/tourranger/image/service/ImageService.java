@@ -20,10 +20,10 @@ public interface ImageService {
 	Resource getImage(Long imageId) throws MalformedURLException;
 
 	/**
-	 * @param multipartFile 이미지 파일
-	 * @return 생성 이미지 dto 반환
+	 * @param multipartFileList 상품에 등록할 이미지 파일 리스트
+	 * @return 추가된 이미지 dto리스트 반환
 	 */
-	ImageResponseDto createImage(MultipartFile multipartFile) throws IOException;
+	List<ImageResponseDto> createImage(Long itemId, List<MultipartFile> multipartFileList) throws IOException;
 
 	/**
 	 * @param multipartFile 이미지파일
@@ -37,5 +37,10 @@ public interface ImageService {
 	 */
 	ApiResponseDto deleteImage(Long imageId);
 
-	List<ImageResponseDto> getImageList();
+	/**
+	 *
+	 * @param itemId 상품id
+	 * @return 상품에 속한 imageList
+	 */
+	List<ImageResponseDto> getImageList(Long itemId);
 }
