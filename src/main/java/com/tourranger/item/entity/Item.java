@@ -38,7 +38,7 @@ public class Item {
 
 	@Builder.Default
 	@OneToMany(mappedBy = "item", orphanRemoval = true)
-	private List<Image> ImageList = new ArrayList<>();
+	private List<Image> imageList = new ArrayList<>();
 
 	@Builder.Default
 	@OneToMany(mappedBy = "item", orphanRemoval = true)

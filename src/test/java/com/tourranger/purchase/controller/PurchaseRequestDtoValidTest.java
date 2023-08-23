@@ -25,7 +25,7 @@ public class PurchaseRequestDtoValidTest {
 
 	@Test
 	@DisplayName("validation Test")
-	void PurchaseItemValidTest() {
+	void purchaseItemValidTest() {
 		// given
 		String email = "1234";
 		PurchaseRequestDto requestDto =
