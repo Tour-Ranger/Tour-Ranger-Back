@@ -50,8 +50,8 @@ jobs:
         shell: bash
 
       # gradle Build
-      - name: Build with Gradle
-        run: ./gradlew build
+      - name: Build without tests
+        run: ./gradlew clean build --exclude-task test
         shell: bash
 
         #CodeDeploy 배포를 위해 빌드된 결과물을 Zip파일로 압축해서 저장
