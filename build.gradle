@@ -27,7 +27,7 @@ repositories {
 }
 
 dependencies {
-    // S3
+    // AWS S3
     implementation 'org.springframework.cloud:spring-cloud-starter-aws:2.2.1.RELEASE'
 
     // === QueryDsl 시작 ===
