@@ -58,9 +58,14 @@ jobs:
       - name: Copy Jar
         run: cp ./build/libs/*.jar ./deploy
 
+      # appspec.yml 파일 복사
+      - name: Copy appspec.yml
+        run: cp appspec.yml ./deploy
+
+
         #CodeDeploy 배포를 위해 빌드된 결과물을 Zip파일로 압축해서 저장
       - name: Make zip file
-        run: zip -qq -r ./$GITHUB_SHA.zip ./deploy
+        run: zip -qq -r ./$GITHUB_SHA.zip .
         shell: bash
 
        #AWS 인증
