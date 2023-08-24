@@ -50,10 +50,10 @@ jobs:
         run: ./gradlew clean build --exclude-task test
         shell: bash
 
-#        #CodeDeploy 배포를 위해 빌드된 결과물을 Zip파일로 압축해서 저장
-#      - name: Make zip file
-#        run: zip -qq -r ./$GITHUB_SHA.zip .
-#        shell: bash
+        #CodeDeploy 배포를 위해 빌드된 결과물을 Zip파일로 압축해서 저장
+      - name: Make zip file
+        run: zip -qq -r ./$GITHUB_SHA.zip .
+        shell: bash
 
        #AWS 인증
       - name: Configure AWS credentials
