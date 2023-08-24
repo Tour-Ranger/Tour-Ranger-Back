@@ -50,9 +50,17 @@ jobs:
         run: ./gradlew clean build --exclude-task test
         shell: bash
 
+      # 디렉토리 생성
+      - name: Make Directory
+        run: mkdir -p deploy
+
+      # Jar 파일 복사
+      - name: Copy Jar
+        run: cp ./build/libs/*.jar ./deploy
+
         #CodeDeploy 배포를 위해 빌드된 결과물을 Zip파일로 압축해서 저장
       - name: Make zip file
-        run: zip -qq -r ./$GITHUB_SHA.zip .
+        run: zip -qq -r ./$GITHUB_SHA.zip ./deploy
         shell: bash
 
        #AWS 인증
