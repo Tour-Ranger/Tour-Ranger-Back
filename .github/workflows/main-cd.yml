@@ -35,14 +35,14 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
 
-      - name: yml 파일 생성
-        run: |
-          cd ./src/main
-          mkdir resources
-          cd resources
-          touch ./application.yml
-          echo "${{ secrets.APPLICATION_YML }}" > ./application.yml
-        shell: bash
+#      - name: yml 파일 생성
+#        run: |
+#          cd ./src/main
+#          mkdir resources
+#          cd resources
+#          touch ./application.yml
+#          echo "${{ secrets.APPLICATION_YML }}" > ./application.yml
+#        shell: bash
 
       # gradle 실행 허가
       - name: Run chmod to make gradlew executable
