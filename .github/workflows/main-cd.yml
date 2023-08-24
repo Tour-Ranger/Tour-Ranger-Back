@@ -7,8 +7,6 @@ on:
   #main branch에 대한 push나 pull request 이벤트를 트리거로 지정
   push:
     branches: [ feature/17/aws ]
-  pull_request:
-    branches: [ feature/17/aws ]
 
 # 리전, 버킷 이름, CodeDeploy 앱 이름, CodeDeploy 배포 그룹 이름
 env:
@@ -35,14 +33,12 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
 
-#      - name: yml 파일 생성
-#        run: |
-#          cd ./src/main
-#          mkdir resources
-#          cd resources
-#          touch ./application.yml
-#          echo "${{ secrets.APPLICATION_YML }}" > ./application.yml
-#        shell: bash
+      - name: yml 파일 생성
+        run: |
+          cd ./src/main/resources
+          touch ./application.yml
+          echo "${{ secrets.APPLICATION_YML }}" > ./application.yml
+        shell: bash
 
       # gradle 실행 허가
       - name: Run chmod to make gradlew executable
@@ -54,10 +50,10 @@ jobs:
         run: ./gradlew clean build --exclude-task test
         shell: bash
 
-        #CodeDeploy 배포를 위해 빌드된 결과물을 Zip파일로 압축해서 저장
-      - name: Make zip file
-        run: zip -qq -r ./$GITHUB_SHA.zip .
-        shell: bash
+#        #CodeDeploy 배포를 위해 빌드된 결과물을 Zip파일로 압축해서 저장
+#      - name: Make zip file
+#        run: zip -qq -r ./$GITHUB_SHA.zip .
+#        shell: bash
 
        #AWS 인증
       - name: Configure AWS credentials
