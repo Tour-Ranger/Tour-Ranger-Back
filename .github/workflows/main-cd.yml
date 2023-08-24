@@ -33,7 +33,7 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
 
-      # RDS DB연동한 application.properties
+      # RDS DB 연동한 application.properties 생성
       - name: application.properties 파일 생성
         run: |
           cd ./src/main/resources
