@@ -33,11 +33,13 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
 
-      - name: yml 파일 생성
+      # RDS DB연동한 application.properties
+      - name: application.properties 파일 생성
         run: |
           cd ./src/main/resources
-          touch ./application.yml
-          echo "${{ secrets.APPLICATION_YML }}" > ./application.yml
+          touch ./template.properties
+          echo "${{secrets.AWS_APPLICATION_PROPERTIES}}" > ./template.properties
+          cp ./template.properties ./application.properties
         shell: bash
 
       # gradle 실행 허가
