@@ -7,6 +7,11 @@ plugins {
 group = 'com'
 version = '0.0.1-SNAPSHOT'
 
+// -plain.jar 파일 생성 안하도록 수정
+jar {
+    enabled = false
+}
+
 java {
     sourceCompatibility = '17'
 }
