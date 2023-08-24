@@ -35,14 +35,23 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
 
+      - name: yml 파일 생성
+        run: |
+          cd ./src/main
+          mkdir resources
+          cd resources
+          touch ./application.yml
+          echo "${{ secrets.APPLICATION_YML }}" > ./application.yml
+        shell: bash
+
       # gradle 실행 허가
       - name: Run chmod to make gradlew executable
         run: chmod +x ./gradlew
         shell: bash
 
       # gradle Build
-      - name: Build with Gradle
-        run: ./gradlew build
+      - name: Setup Gradle
+        run: gradle/gradle-build-action@v2
         shell: bash
 
         #CodeDeploy 배포를 위해 빌드된 결과물을 Zip파일로 압축해서 저장
