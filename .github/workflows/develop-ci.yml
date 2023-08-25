@@ -47,9 +47,7 @@ jobs:
 
       - name: yml 파일 생성
         run: |
-          cd ./src/main
-          mkdir resources
-          cd resources
+          cd ./src/main/resources
           touch ./application.yml
           echo "${{ secrets.APPLICATION_YML }}" > ./application.yml
         shell: bash
