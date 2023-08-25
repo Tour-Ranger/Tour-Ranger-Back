@@ -42,6 +42,7 @@
                 const period = data.period;
                 const price = data.price;
                 const discountPrice = data.discountPrice;
+                window.id = data.id;
 
                 document.querySelector(".name").textContent = name;
                 document.querySelector(".period").textContent = period + "일";
@@ -56,8 +57,42 @@
         //getImage
         document.getElementById("dealImage").src = "/tour-ranger/images/1";
 
-    }
+        //구매하기 버튼 클릭
+        document.getElementById("purchaseButton").addEventListener("click", function () {
+            const email = document.getElementById("email").value;
+            const itemId = window.id;
+            if (!email) {
+                alert("이메일을 입력해 주세요."); // Display an email requirement message
+                return;
+            }
+            // Prepare data for the POST request
+            const requestData = {
+                email: email,
+                // Add other necessary data for the purchase
+            };
+            // Send the POST request
+            fetch(`/tour-ranger/purchases/${itemId}`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(requestData)
+            })
+                .then(response => response.json())
+                .then(data => {
+                    // Handle the purchase response data
+                    if (data.statusCode === 400) {
+                        alert(data.statusMessage); // Display an error message
+                    } else {
+                        alert("구매에 성공 했습니다."); // Display a success message
+                    }
+                })
+                .catch(error => {
+                    console.error("Error purchasing:", error);
+                });
+        });
 
+    }
 
     // Only handle the window.onload event once
     let windowLoaded = false;
