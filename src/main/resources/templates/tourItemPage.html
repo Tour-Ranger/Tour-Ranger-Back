@@ -49,18 +49,36 @@
                 document.querySelector(".quantity").textContent = quantity;
                 document.querySelector(".price").textContent = price + "원";
                 document.querySelector(".discountPrice").textContent = discountPrice + "원";
+
+                fetchImage(window.id);
             })
             .catch(error => {
                 console.error("Error fetching item data:", error);
             });
 
-        //getImage
-        document.getElementById("dealImage").src = "/tour-ranger/images/1";
+        function fetchImage(itemId) {
+            fetch('/tour-ranger/items/' + itemId + '/images')
+                .then(response => response.json())
+                .then(dataList => {
+                    if (dataList.length > 0) {
+                        const imageData = dataList[0];
+                        const imageId = imageData.id;
+
+                        document.getElementById("dealImage").src = "/tour-ranger/images/" + imageId;
+
+                    } else {
+                        console.error("No image data found.");
+                    }
+                })
+                .catch(error => {
+                    console.error("Error fetching image data:", error);
+                });
+        }
 
         //구매하기 버튼 클릭
         document.getElementById("purchaseButton").addEventListener("click", function () {
             const email = document.getElementById("email").value;
-            const itemId = window.id;
+            //const itemId = window.id;
             if (!email) {
                 alert("이메일을 입력해 주세요.");
                 return;
@@ -94,7 +112,7 @@
                                 errorMessage = "이메일 형식을 확인해 주세요.";
                         }
                         alert(errorMessage);
-                    }else {
+                    } else {
                         alert("구매에 성공 했습니다.");
                     }
                 })
@@ -104,7 +122,8 @@
         });
 
     }
-    window.onload = function() {
+
+    window.onload = function () {
         fetchItem();
     };
 </script>
