@@ -104,14 +104,8 @@
         });
 
     }
-
-    // Only handle the window.onload event once
-    let windowLoaded = false;
-    window.onload = function () {
-        if (!windowLoaded) {
-            fetchItem();
-            windowLoaded = true;
-        }
+    window.onload = function() {
+        fetchItem();
     };
 </script>
 </body>
