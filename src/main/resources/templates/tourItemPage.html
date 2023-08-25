@@ -44,11 +44,23 @@
                 const discountPrice = data.discountPrice;
                 window.id = data.id;
 
+                // 숫자 포맷을 위한 옵션 설정
+                const numberFormatOptions = {
+                    style: "currency",
+                    currency: "KRW", // 원화 표시
+                    minimumFractionDigits: 0,
+                    maximumFractionDigits: 0,
+                };
+
+                // 천 단위 구분 기호를 포함한 금액 포맷팅
+                const formattedOriginalPrice = new Intl.NumberFormat("ko-KR", numberFormatOptions).format(price);
+                const formattedDiscountPrice = new Intl.NumberFormat("ko-KR", numberFormatOptions).format(discountPrice);
+
                 document.querySelector(".name").textContent = name;
                 document.querySelector(".period").textContent = period + "일";
                 document.querySelector(".quantity").textContent = quantity;
-                document.querySelector(".price").textContent = price + "원";
-                document.querySelector(".discountPrice").textContent = discountPrice + "원";
+                document.querySelector(".price").textContent = formattedOriginalPrice;
+                document.querySelector(".discountPrice").textContent = formattedDiscountPrice;
 
                 fetchImage(window.id);
             })
