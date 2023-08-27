@@ -2,9 +2,12 @@ package com.tourranger.item.controller;
 
 import com.tourranger.item.dto.ItemResponseDto;
 import com.tourranger.item.service.ItemService;
+
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
+
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,6 +23,7 @@ public class ItemController {
 
 	@Operation(summary = "상품 조회", description = "ItemId에 맞는 상품의 정보를 조회합니다.")
 	@GetMapping("/items/{itemId}")
+	@Cacheable(key = "#itemId", value = "ITEM")
 	public ResponseEntity<ItemResponseDto> getItem(@PathVariable Long itemId) {
 		ItemResponseDto responseDto = itemService.getItem(itemId);
 		return ResponseEntity.ok().body(responseDto);
