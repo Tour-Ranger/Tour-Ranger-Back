@@ -32,7 +32,8 @@ public class FileStore {
 		String saveFileName = createSaveFileName(originalFileName);
 		//서버에 파일 저장
 		multipartFile.transferTo(new File(getFullPath(saveFileName)));
-		return saveFileName;
+
+		return "file:" + getFullPath(saveFileName);
 	}
 
 	//여러 개의 이미지파일 업로드 저장
@@ -71,8 +72,7 @@ public class FileStore {
 
 	// fullPath 만들기
 	public String getFullPath(String filename) {
-		String fullPath = uploadPath + filename;
-		return fullPath;
+		return uploadPath + filename;
 	}
 
 }

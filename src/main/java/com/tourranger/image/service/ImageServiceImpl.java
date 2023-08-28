@@ -34,7 +34,7 @@ public class ImageServiceImpl implements ImageService {
 	@Transactional(readOnly = true)
 	public Resource getImage(Long imageId) throws MalformedURLException {
 		Image targetImage = findImage(imageId);
-		return new UrlResource("file:" + fileStore.getFullPath(targetImage.getUrl()));
+		return new UrlResource(targetImage.getUrl());
 	}
 
 	//아이템에 속한 이미지 전체를 조회하는 메서드
