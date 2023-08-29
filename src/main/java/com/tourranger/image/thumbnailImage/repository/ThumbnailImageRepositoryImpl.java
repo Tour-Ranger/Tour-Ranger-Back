@@ -1,4 +1,4 @@
-package com.tourranger.image.repository.thumbnailImage;
+package com.tourranger.image.thumbnailImage.repository;
 
 import org.springframework.stereotype.Repository;
 
