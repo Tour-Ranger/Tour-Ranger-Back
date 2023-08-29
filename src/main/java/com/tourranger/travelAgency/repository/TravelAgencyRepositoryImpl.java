@@ -1,4 +1,4 @@
-package travelAgency.repository;
+package com.tourranger.travelAgency.repository;
 
 import org.springframework.stereotype.Repository;
 

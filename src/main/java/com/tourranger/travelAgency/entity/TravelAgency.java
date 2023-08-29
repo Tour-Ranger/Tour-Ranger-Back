@@ -1,4 +1,4 @@
-package travelAgency.entity;
+package com.tourranger.travelAgency.entity;
 
 import java.util.ArrayList;
 import java.util.List;
