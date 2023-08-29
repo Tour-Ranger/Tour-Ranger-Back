@@ -99,7 +99,7 @@ public class TravelAgencyServiceImpl implements TravelAgencyService {
 		//저장소에서 이미지 찾아 삭제
 		fileStore.deleteFile(targetTravelAgency.getUrl());
 		//DB에서 이미지 정보 삭제
-		travelAgencyRepository.delete(targetTravelAgency);
+		travelAgencyRepository.deleteById(targetTravelAgency.getId());
 
 		return new ApiResponseDto(200, "이미지 삭제 완료");
 	}
