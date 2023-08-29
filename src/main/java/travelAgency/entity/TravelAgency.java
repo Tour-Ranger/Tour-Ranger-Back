@@ -1,4 +1,4 @@
-package com.tourranger.image.travelAgency.entity;
+package travelAgency.entity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,10 +26,10 @@ public class TravelAgency {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@Column
+	@Column(nullable = false)
 	private String name;
 
-	@Column(nullable = false)
+	@Column
 	private String url;
 
 	@Builder.Default
