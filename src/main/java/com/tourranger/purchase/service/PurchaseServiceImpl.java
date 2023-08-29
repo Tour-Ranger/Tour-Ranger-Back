@@ -34,7 +34,7 @@ public class PurchaseServiceImpl implements PurchaseService {
 	}
 
 	private void checkStock(Item item) {
-		if (item.getQuantity() == 0) {
+		if (item.getCurrentQuantity() == 0) {
 			throw new CustomException(CustomErrorCode.OUT_OF_STOCK, null);
 		}
 	}
