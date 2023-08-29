@@ -39,7 +39,7 @@ public class AirlineServiceImpl implements AirlineService {
 	public AirlineResponseDto createAirline(AirlineRequestDto requestDto) throws IOException {
 		Airline airline;
 		//이미지 파일 저장 방식인 경우
-		if (requestDto.getUrl().isEmpty() && !requestDto.getMultipartFile().isEmpty()) {
+		if (requestDto.getUrl()==null && requestDto.getMultipartFile()!=null) {
 			//이미지 파일을 지정한 경로에 저장
 			String saveFileName = fileStore.saveFile(requestDto.getMultipartFile());
 
@@ -51,7 +51,7 @@ public class AirlineServiceImpl implements AirlineService {
 			return new AirlineResponseDto(airline);
 		}
 		//url 저장 방식인 경우
-		else if (requestDto.getMultipartFile().isEmpty() && !requestDto.getUrl().isEmpty()) {
+		else if (requestDto.getMultipartFile()==null && requestDto.getUrl()!=null) {
 			airline = new Airline(requestDto.getName(), requestDto.getUrl());
 			airlineRepository.save(airline);
 			//AirlineResponseDto로 결과 반환
@@ -74,14 +74,14 @@ public class AirlineServiceImpl implements AirlineService {
 		}
 
 		//이미지 파일 저장 방식인 경우
-		if (requestDto.getUrl().isEmpty() && !requestDto.getMultipartFile().isEmpty()) {
+		if (requestDto.getUrl() == null && requestDto.getMultipartFile()!=null) {
 			//새로 업로드한 이미지파일 저장
 			String saveFileName = fileStore.saveFile(requestDto.getMultipartFile());
 			//저장경로로 url 변경
 			targetAirline.setUrl(saveFileName);
 		}
 		//url 저장 방식인 경우
-		else if (requestDto.getMultipartFile().isEmpty() && !requestDto.getUrl().isEmpty()) {
+		else if (requestDto.getMultipartFile() == null && requestDto.getUrl() != null) {
 			//url 변경
 			targetAirline.setUrl(requestDto.getUrl());
 		}
