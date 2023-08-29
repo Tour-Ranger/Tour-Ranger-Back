@@ -1,4 +1,4 @@
-package com.tourranger.image.repository.airline;
+package com.tourranger.image.airline.repository;
 
 import org.springframework.stereotype.Repository;
 
