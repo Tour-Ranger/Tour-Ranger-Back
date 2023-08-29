@@ -6,6 +6,7 @@ import java.util.List;
 import com.tourranger.airline.entity.Airline;
 import com.tourranger.purchase.entity.Purchase;
 import com.tourranger.thumbnailImage.entity.ThumbnailImage;
+import com.tourranger.travelAgency.entity.TravelAgency;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -20,7 +21,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import travelAgency.entity.TravelAgency;
 
 @Entity
 @Getter
