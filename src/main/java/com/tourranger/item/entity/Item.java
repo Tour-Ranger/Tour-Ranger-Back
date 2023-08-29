@@ -48,15 +48,15 @@ public class Item {
 	private Long period;
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "travel_agency_id", nullable = false)
+	@JoinColumn(name = "travelAgencyId", nullable = false)
 	private TravelAgency travelAgency;
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "thumbnail_image_id", nullable = false)
+	@JoinColumn(name = "thumbnailImageId", nullable = false)
 	private ThumbnailImage thumbnailImage;
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "airline_id", nullable = false)
+	@JoinColumn(name = "airlineId", nullable = false)
 	private Airline airline;
 
 	@Builder.Default
