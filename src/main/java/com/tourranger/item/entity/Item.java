@@ -1,9 +1,9 @@
 package com.tourranger.item.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.tourranger.airline.Airline;
-import com.tourranger.thumbnailImage.ThumbnailImage;
-import com.tourranger.travelAgency.TravelAgency;
+import com.tourranger.airline.entity.Airline;
+import com.tourranger.thumbnailImage.entity.ThumbnailImage;
+import com.tourranger.travelAgency.entity.TravelAgency;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -26,6 +26,8 @@ public class Item {
 	private Long price;
 	private Long discountPrice;
 	private Long currentQuantity;
+
+	@Builder.Default
 	private Long maxQuantity = 30L;
 	private String period;
 
@@ -36,15 +38,15 @@ public class Item {
 	private LocalDateTime arrivalTime;
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name="travelAgencyId")
+	@JoinColumn(name = "travelAgencyId", nullable = false)
 	private TravelAgency travelAgency;
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name="airlineId")
+	@JoinColumn(name = "airlineId", nullable = false)
 	private Airline airline;
 
-	@OneToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "thumbnailId")
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "thumbnailImageId", nullable = false)
 	private ThumbnailImage thumbnailImage;
 
 	public void sellOne() {

@@ -1,14 +1,14 @@
 package com.tourranger.common.dummy;
 
 import com.github.javafaker.Faker;
-import com.tourranger.airline.Airline;
-import com.tourranger.airline.AirlineRepository;
+import com.tourranger.airline.entity.Airline;
+import com.tourranger.airline.repository.AirlineRepository;
 import com.tourranger.item.entity.Item;
 import com.tourranger.item.repository.ItemRepository;
-import com.tourranger.thumbnailImage.ThumbnailImage;
-import com.tourranger.thumbnailImage.ThumbnailImageRepository;
-import com.tourranger.travelAgency.TravelAgency;
-import com.tourranger.travelAgency.TravelAgencyRepository;
+import com.tourranger.thumbnailImage.entity.ThumbnailImage;
+import com.tourranger.thumbnailImage.repository.ThumbnailImageRepository;
+import com.tourranger.travelAgency.entity.TravelAgency;
+import com.tourranger.travelAgency.repository.TravelAgencyRepository;
 import com.tourranger.user.entity.User;
 import com.tourranger.user.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -66,12 +66,12 @@ public class DummyGenerator implements CommandLineRunner {
 	public void dummyImageGenerator() {
 		Airline airline = Airline.builder()
 				.name("투어레인저 항공사")
-				.imageUrl("tour-ranger-airline.jpg").build();
+				.url("tour-ranger-airline.jpg").build();
 		ThumbnailImage thumbnailImage = ThumbnailImage.builder()
-				.imageUrl("thumbnail.jpg").build();
+				.url("thumbnail.jpg").build();
 		TravelAgency travelAgency = TravelAgency.builder()
 				.name("투어레인저 여행사")
-				.imageUrl("tour-ranger-travel-agency.jpg").build();
+				.url("tour-ranger-travel-agency.jpg").build();
 		airlineRepository.save(airline);
 		thumbnailImageRepository.save(thumbnailImage);
 		travelAgencyRepository.save(travelAgency);
@@ -84,11 +84,11 @@ public class DummyGenerator implements CommandLineRunner {
 		Long discountPrice = 100L; // 백원
 		Long currentQuantity = 30L; // 30개
 		String period = "3박 4일";
-		LocalDateTime departureTime = LocalDateTime.parse("2023-09-17 08:30:00");
-		LocalDateTime arrivalTime = LocalDateTime.parse("2023-09-20 18:45:00");
-		TravelAgency travelAgency = travelAgencyRepository.findById(1L).orElse(null);
-		Airline airline = airlineRepository.findById(1L).orElse(null);
-		ThumbnailImage thumbnailImage = thumbnailImageRepository.findById(1L).orElse(null);
+		LocalDateTime departureTime = LocalDateTime.of(2023,9,17,8,30,0);
+		LocalDateTime arrivalTime = LocalDateTime.of(2023,9,20,18,45,0);
+		TravelAgency travelAgency = travelAgencyRepository.findTopByName("투어레인저 여행사").orElse(null);
+		Airline airline = airlineRepository.findTopByName("투어레인저 항공사").orElse(null);
+		ThumbnailImage thumbnailImage = thumbnailImageRepository.findTopByUrl("thumbnail.jpg").orElse(null);
 		Item item = Item.builder()
 				.name(name).price(price).discountPrice(discountPrice)
 				.currentQuantity(currentQuantity).period(period)
