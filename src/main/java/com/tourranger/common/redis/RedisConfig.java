@@ -50,7 +50,7 @@ public class RedisConfig {
 		//key를 문자열로 변환하도록 직렬화 설정
 		redisTemplate.setKeySerializer(new StringRedisSerializer());
 
-		//value를 json로 변환하돌록 직렬화 설정.
+		//value를 json로 변환하도록 직렬화 설정.
 		redisTemplate.setValueSerializer(new GenericJackson2JsonRedisSerializer(objectMapper));
 
 		return redisTemplate;

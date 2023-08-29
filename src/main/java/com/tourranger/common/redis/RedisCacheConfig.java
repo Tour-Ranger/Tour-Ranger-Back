@@ -27,7 +27,7 @@ public class RedisCacheConfig {
 		RedisCacheConfiguration config = RedisCacheConfiguration.defaultCacheConfig()
 			.serializeKeysWith(RedisSerializationContext.SerializationPair.fromSerializer(new StringRedisSerializer()))
 			.serializeValuesWith(RedisSerializationContext.SerializationPair.fromSerializer(redisSerializer))
-			.entryTtl(Duration.ofMinutes(10)); // 캐시 지속 시간
+			.entryTtl(Duration.ofMinutes(10)); // 캐시 지속 시간 설정
 
 		return RedisCacheManager
 			.RedisCacheManagerBuilder
@@ -42,10 +42,11 @@ public class RedisCacheConfig {
 			.allowIfSubType(Object.class)
 			.build();
 
-		// ObjectMapper 를 사용해서 LocalTimeDate를 직렬화를 하기 위해 매핑
+		// ObjectMapper 를 사용해서 LocalTimeDate를 직렬화 하기 위해 매핑
 		ObjectMapper objectMapper = new ObjectMapper();
 		objectMapper.registerModule(new JavaTimeModule());
 		objectMapper.activateDefaultTyping(typeValidator, ObjectMapper.DefaultTyping.NON_FINAL);
+
 		GenericJackson2JsonRedisSerializer redisSerializer = new GenericJackson2JsonRedisSerializer(objectMapper);
 
 		return redisSerializer;
