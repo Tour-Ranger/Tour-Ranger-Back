@@ -1,4 +1,4 @@
-package com.tourranger.image.entity;
+package com.tourranger.image.airline.entity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,9 +27,21 @@ public class Airline {
 	private Long id;
 
 	@Column(nullable = false)
+	private String name;
+
+	@Column(nullable = false)
 	private String url;
 
 	@Builder.Default
 	@OneToMany(mappedBy = "airline", orphanRemoval = true)
 	private List<Item> itemList = new ArrayList<>();
+
+	public Airline(String name, String url) {
+		this.name = name;
+		this.url = url;
+	}
+
+	public void setUrl(String url) {
+		this.url = url;
+	}
 }

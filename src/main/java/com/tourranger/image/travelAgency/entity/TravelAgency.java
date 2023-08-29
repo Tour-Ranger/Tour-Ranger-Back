@@ -1,4 +1,4 @@
-package com.tourranger.image.entity;
+package com.tourranger.image.travelAgency.entity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,9 +27,21 @@ public class TravelAgency {
 	private Long id;
 
 	@Column(nullable = false)
+	private String name;
+
+	@Column(nullable = false)
 	private String url;
 
 	@Builder.Default
 	@OneToMany(mappedBy = "travelAgency", orphanRemoval = true)
 	private List<Item> itemList = new ArrayList<>();
+
+	public TravelAgency(String name, String url){
+		this.name = name;
+		this.url = url;
+	}
+
+	public void setUrl(String url) {
+		this.url = url;
+	}
 }
