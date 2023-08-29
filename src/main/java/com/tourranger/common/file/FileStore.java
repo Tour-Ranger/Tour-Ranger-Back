@@ -49,7 +49,7 @@ public class FileStore {
 
 	//파일 삭제 메서드
 	public void deleteFile(String fileName) {
-		File file = new File(getFullPath(fileName));
+		File file = new File(fileName);
 
 		if (file.exists()) {
 			file.delete();
