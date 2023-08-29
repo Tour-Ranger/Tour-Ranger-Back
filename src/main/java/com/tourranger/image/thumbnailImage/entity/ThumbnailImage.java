@@ -1,4 +1,4 @@
-package com.tourranger.image.entity;
+package com.tourranger.image.thumbnailImage.entity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,4 +32,11 @@ public class ThumbnailImage {
 	@Builder.Default
 	@OneToMany(mappedBy = "thumbnailImage", orphanRemoval = true)
 	private List<Item> itemList = new ArrayList<>();
+
+	public ThumbnailImage( String url){
+		this.url = url;
+	}
+	public void setUrl(String url) {
+		this.url = url;
+	}
 }
