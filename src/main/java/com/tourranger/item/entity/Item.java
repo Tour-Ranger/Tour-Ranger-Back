@@ -1,15 +1,26 @@
 package com.tourranger.item.entity;
 
-import com.tourranger.image.entity.Image;
+import java.util.ArrayList;
+import java.util.List;
+
+import com.tourranger.airline.entity.Airline;
 import com.tourranger.purchase.entity.Purchase;
-import jakarta.persistence.*;
+import com.tourranger.thumbnailImage.entity.ThumbnailImage;
+import com.tourranger.travelAgency.entity.TravelAgency;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 @Getter
@@ -36,9 +47,17 @@ public class Item {
 	@Column(nullable = false)
 	private Long period;
 
-	@Builder.Default
-	@OneToMany(mappedBy = "item", orphanRemoval = true)
-	private List<Image> imageList = new ArrayList<>();
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "travelAgencyId", nullable = false)
+	private TravelAgency travelAgency;
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "thumbnailImageId", nullable = false)
+	private ThumbnailImage thumbnailImage;
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "airlineId", nullable = false)
+	private Airline airline;
 
 	@Builder.Default
 	@OneToMany(mappedBy = "item", orphanRemoval = true)
