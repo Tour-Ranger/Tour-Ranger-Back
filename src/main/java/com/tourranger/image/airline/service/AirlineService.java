@@ -12,7 +12,7 @@ import com.tourranger.image.airline.dto.AirlineResponseDto;
 public interface AirlineService {
 	/**
 	 *
-	 * @param airlineId 상품id
+	 * @param airlineId airline Id
 	 * @return 선택한 상품 id에 해당하는 Airline 이미지 resource
 	 */
 	Resource getAirline(Long airlineId) throws MalformedURLException;

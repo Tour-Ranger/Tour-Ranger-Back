@@ -12,10 +12,10 @@ import com.tourranger.image.thumbnailImage.dto.ThumbnailImageResponseDto;
 public interface ThumbnailImageService {
 	/**
 	 *
-	 * @param itemId 상품id
+	 * @param thumbnailImageId
 	 * @return 선택한 상품 id에 해당하는 Airline 이미지 resource
 	 */
-	Resource getThumbnailImage(Long itemId) throws MalformedURLException;
+	Resource getThumbnailImage(Long thumbnailImageId) throws MalformedURLException;
 
 	/**
 	 * @param requestDto 추가할 이미지Dto
