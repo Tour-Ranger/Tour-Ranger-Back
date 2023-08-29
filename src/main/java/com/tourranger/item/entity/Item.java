@@ -3,10 +3,9 @@ package com.tourranger.item.entity;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.tourranger.image.airline.entity.Airline;
-import com.tourranger.image.thumbnailImage.entity.ThumbnailImage;
-import com.tourranger.image.travelAgency.entity.TravelAgency;
+import com.tourranger.airline.entity.Airline;
 import com.tourranger.purchase.entity.Purchase;
+import com.tourranger.thumbnailImage.entity.ThumbnailImage;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -21,6 +20,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import travelAgency.entity.TravelAgency;
 
 @Entity
 @Getter
