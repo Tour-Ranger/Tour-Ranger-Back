@@ -1,18 +1,26 @@
 package com.tourranger.item.entity;
 
-import com.tourranger.image.entity.Airline;
-import com.tourranger.image.entity.Image;
-import com.tourranger.image.entity.ThumbnailImage;
-import com.tourranger.image.entity.TravelAgency;
+import java.util.ArrayList;
+import java.util.List;
+
+import com.tourranger.image.airline.entity.Airline;
+import com.tourranger.image.thumbnailImage.entity.ThumbnailImage;
+import com.tourranger.image.travelAgency.entity.TravelAgency;
 import com.tourranger.purchase.entity.Purchase;
-import jakarta.persistence.*;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 @Getter
@@ -50,11 +58,6 @@ public class Item {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "airline_id", nullable = false)
 	private Airline airline;
-
-
-	@Builder.Default
-	@OneToMany(mappedBy = "item", orphanRemoval = true)
-	private List<Image> imageList = new ArrayList<>();
 
 	@Builder.Default
 	@OneToMany(mappedBy = "item", orphanRemoval = true)
