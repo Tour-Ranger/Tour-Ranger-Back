@@ -33,6 +33,7 @@ public class RedisConfig {
 	public RedisConnectionFactory cacheConnectionFactory() {
 		RedisStandaloneConfiguration redisStandaloneConfiguration = new RedisStandaloneConfiguration();
 
+		//Redis 속성에서 호스트, 포트 및 암호 설정
 		redisStandaloneConfiguration.setHostName(redisProperties.getHost());
 		redisStandaloneConfiguration.setPort(redisProperties.getPort());
 		redisStandaloneConfiguration.setPassword(redisProperties.getPassword());
@@ -45,7 +46,11 @@ public class RedisConfig {
 		RedisTemplate<String, Object> redisTemplate = new RedisTemplate<>();
 
 		redisTemplate.setConnectionFactory(cacheConnectionFactory());
+
+		//key를 문자열로 변환하도록 직렬화 설정
 		redisTemplate.setKeySerializer(new StringRedisSerializer());
+
+		//value를 json로 변환하돌록 직렬화 설정.
 		redisTemplate.setValueSerializer(new GenericJackson2JsonRedisSerializer(objectMapper));
 
 		return redisTemplate;
