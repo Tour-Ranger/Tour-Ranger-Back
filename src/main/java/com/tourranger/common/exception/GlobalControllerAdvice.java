@@ -8,6 +8,7 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.multipart.MaxUploadSizeExceededException;
 
 @Slf4j
 @RestControllerAdvice
@@ -28,5 +29,12 @@ public class GlobalControllerAdvice {
 		}
 
 		return ResponseEntity.badRequest().body(new ApiResponseDto(HttpStatus.BAD_REQUEST.value(), errorMessage.toString()));
+	}
+
+	@ExceptionHandler({MaxUploadSizeExceededException.class})
+	public ResponseEntity<ApiResponseDto> handlerUploadSizeException(MaxUploadSizeExceededException ex) {
+		return ResponseEntity.badRequest()
+			.body(new ApiResponseDto(HttpStatus.BAD_REQUEST.value(), "업로드 기준 용량을 초과했습니다."));
+
 	}
 }

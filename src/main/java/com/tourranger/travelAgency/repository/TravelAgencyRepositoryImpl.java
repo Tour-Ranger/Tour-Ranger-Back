@@ -1,4 +1,4 @@
-package com.tourranger.image.repository;
+package com.tourranger.travelAgency.repository;
 
 import org.springframework.stereotype.Repository;
 
@@ -8,7 +8,7 @@ import lombok.RequiredArgsConstructor;
 
 @Repository
 @RequiredArgsConstructor
-public class ImageRepositoryImpl implements ImageRepositoryCustom {
+public class TravelAgencyRepositoryImpl implements TravelAgencyRepositoryCustom {
 	private final JPAQueryFactory jpaQueryFactory;
 
 }
