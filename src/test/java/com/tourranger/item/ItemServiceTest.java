@@ -35,6 +35,9 @@ public class ItemServiceTest {
 	private ItemServiceImpl itemService;
 
 	Long itemId = null;
+	Long travelAgencyId = null;
+	Long airlineId = null;
+	Long thumbnailImageId = null;
 	String name = "투어레인저 패키지";
 	Long price = 529_000L; // 3백만원
 	Long discountPrice = 100L; // 백원
@@ -47,6 +50,7 @@ public class ItemServiceTest {
 	@BeforeAll
 	@DisplayName("필요한 Entity 저장")
 	void saveEntities() {
+		// 아이템 저장에 필요한 Entity 저장
 		TravelAgency travelAgency = TravelAgency.builder()
 				.url("travelAgency.jpg")
 				.name("투어레인저 여행사").build();
@@ -70,7 +74,12 @@ public class ItemServiceTest {
 
 		// 마지막에 생성된 Item 찾기
 		Item targetItem = itemRepository.findTopByOrderByIdDesc().orElse(null);
+
+		// 마지막에 생성된 아이템에 관한 정보 전역 필드에 저장
 		itemId = targetItem.getId();
+		travelAgencyId = targetItem.getTravelAgency().getId();
+		airlineId = targetItem.getAirline().getId();
+		thumbnailImageId = targetItem.getThumbnailImage().getId();
 	}
 
 	@Test
@@ -80,15 +89,20 @@ public class ItemServiceTest {
 	void getItemTest() {
 		ItemResponseDto responseDto = itemService.getItem(itemId);
 
-		// item은 정해준 값으로 잘 생성되었는가?
+		// ItemResponseDto 값 확인
+		assertEquals(itemId, responseDto.getId());
 		assertEquals(name, responseDto.getName());
 		assertEquals(price, responseDto.getPrice());
 		assertEquals(discountPrice, responseDto.getDiscountPrice());
 		assertEquals(currentQuantity, responseDto.getCurrentQuantity());
+		assertEquals(30L, responseDto.getMaxQuantity());
 		assertEquals(period, responseDto.getPeriod());
 		assertEquals(departureTime, responseDto.getDepartureTime());
 		assertEquals(arrivalTime, responseDto.getArrivalTime());
-		assertEquals("투어레인저 여행사", responseDto.getTravelAgency());
-		assertEquals("투어레인저 항공사", responseDto.getAirline());
+		assertEquals(travelAgencyId, responseDto.getTravelAgencyId());
+		assertEquals("투어레인저 여행사", responseDto.getTravelAgencyName());
+		assertEquals(airlineId, responseDto.getAirlineId());
+		assertEquals("투어레인저 항공사", responseDto.getAirlineName());
+		assertEquals(thumbnailImageId, responseDto.getThumbnailImageId());
 	}
 }
