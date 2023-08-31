@@ -1,9 +1,6 @@
 package com.tourranger.travelAgency.service;
 
-import java.net.MalformedURLException;
-
-import org.springframework.core.io.Resource;
-import org.springframework.core.io.UrlResource;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -11,10 +8,9 @@ import com.tourranger.common.error.CustomErrorCode;
 import com.tourranger.common.exception.CustomException;
 import com.tourranger.common.file.FileStore;
 import com.tourranger.travelAgency.entity.TravelAgency;
+import com.tourranger.travelAgency.repository.TravelAgencyRepository;
 
 import lombok.RequiredArgsConstructor;
-
-import com.tourranger.travelAgency.repository.TravelAgencyRepository;
 
 @Service
 @RequiredArgsConstructor
@@ -25,9 +21,10 @@ public class TravelAgencyServiceImpl implements TravelAgencyService {
 	//이미지를 조회하는 메서드
 	@Override
 	@Transactional(readOnly = true)
-	public Resource getTravelAgency(Long travelAgencyId) throws MalformedURLException {
+	@Cacheable(key = "#travelAgencyId", value = "travelAgency")
+	public String getTravelAgency(Long travelAgencyId) {
 		TravelAgency travelAgency = findTravelAgency(travelAgencyId);
-		return new UrlResource(travelAgency.getUrl());
+		return travelAgency.getUrl();
 	}
 
 	// 이미지 객체를 repository에서 찾는 메서드

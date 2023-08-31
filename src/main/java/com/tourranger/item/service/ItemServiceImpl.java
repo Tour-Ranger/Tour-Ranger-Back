@@ -18,7 +18,7 @@ public class ItemServiceImpl implements ItemService {
 	private final ItemRepository itemRepository;
 
 	@Override
-	@Cacheable(key = "#itemId", value = "ITEM")
+	@Cacheable(key = "#itemId", value = "item")
 	public ItemResponseDto getItem(Long itemId) {
 		Item item = findItem(itemId);
 		ItemResponseDto responseDto = new ItemResponseDto(item);

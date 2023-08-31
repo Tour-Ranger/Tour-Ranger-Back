@@ -3,6 +3,7 @@ package com.tourranger.travelAgency.controller;
 import java.net.MalformedURLException;
 
 import org.springframework.core.io.Resource;
+import org.springframework.core.io.UrlResource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,6 +27,7 @@ public class TravelAgencyController {
 	@GetMapping("/travelAgencies/{travelAgencyId}")
 	@Operation(summary = "여행사 이미지파일 조회", description = "여행사 이미지 url의 Resource를 조회합니다.")
 	public ResponseEntity<Resource> getTravelAgency(@PathVariable Long travelAgencyId) throws MalformedURLException {
-		return ResponseEntity.status(HttpStatus.OK).body(travelAgencyService.getTravelAgency(travelAgencyId));
+		return ResponseEntity.status(HttpStatus.OK)
+			.body(new UrlResource(travelAgencyService.getTravelAgency(travelAgencyId)));
 	}
 }

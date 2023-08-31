@@ -1,9 +1,6 @@
 package com.tourranger.airline.service;
 
-import java.net.MalformedURLException;
-
-import org.springframework.core.io.Resource;
-import org.springframework.core.io.UrlResource;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -11,7 +8,6 @@ import com.tourranger.airline.entity.Airline;
 import com.tourranger.airline.repository.AirlineRepository;
 import com.tourranger.common.error.CustomErrorCode;
 import com.tourranger.common.exception.CustomException;
-import com.tourranger.common.file.FileStore;
 
 import lombok.RequiredArgsConstructor;
 
@@ -19,14 +15,14 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class AirlineServiceImpl implements AirlineService {
 	private final AirlineRepository airlineRepository;
-	private final FileStore fileStore;
 
 	//이미지를 조회하는 메서드
 	@Override
 	@Transactional(readOnly = true)
-	public Resource getAirline(Long airlineId) throws MalformedURLException {
+	@Cacheable(key = "#airlineId", value = "airline")
+	public String getAirline(Long airlineId) {
 		Airline airline = findAirline(airlineId);
-		return new UrlResource(airline.getUrl());
+		return airline.getUrl();
 	}
 
 	// 이미지 객체를 repository에서 찾는 메서드
