@@ -50,11 +50,10 @@
 
 <script>
     function fetchItem() {
-
-
-
+        const url = window.location.href;
+        let itemId = url.split("/").pop(); //url에서 끝값에 위치한 id번호 가져오기
         //getItem
-        fetch("/tour-ranger/items/1")
+        fetch(`/tour-ranger/items/${itemId}`)
             .then(response => response.json())
             .then(data => {
                 const name = data.name;

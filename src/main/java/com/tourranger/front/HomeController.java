@@ -14,7 +14,7 @@ public class HomeController {
 		return "bannerPage";
 	}
 
-	@GetMapping("/items/1")
+	@GetMapping("/items/{itemId}")
 	public String tourItem() {
 		return "tourItemPage";
 	}
