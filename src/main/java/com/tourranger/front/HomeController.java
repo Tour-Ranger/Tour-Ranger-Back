@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @RequiredArgsConstructor
@@ -16,7 +17,7 @@ public class HomeController {
 		return "bannerPage";
 	}
 
-	@GetMapping("/front/items/{itemId}")
+	@GetMapping("/front/items")
 	public String tourItem() {
 		return "tourItemPage";
 	}

@@ -32,12 +32,15 @@
                         <dd class="departureTime"></dd>
                         <dt>한국도착🛬</dt>
                         <dd class="arrivalTime"></dd>
-                        <p class="lead" id="price">상품 가격: <span class="price" ></span></p>
-                        <p class="lead text-danger" style="font-weight: bold">할인적용가: <span class="discountPrice"></span></p>
+                        <p class="lead" id="price">상품 가격: <span class="price"></span></p>
+                        <p class="lead text-danger" style="font-weight: bold">할인적용가: <span class="discountPrice"></span>
+                        </p>
                         <label for="email" class="form-label">주문자 Email</label>
                         <input type="email" class="form-control" id="email" placeholder="Enter your email">
                         <dt>예약현황</dt>
-                        <dd>총 <span class="maxQuantity" style="font-weight: bold;color: darkblue;"></span>좌석 중 잔여 좌석 <span class="currentQuantity" style="font-weight: bold; color: darkred;"></span>개 남았습니다.</dd>
+                        <dd>총 <span class="maxQuantity" style="font-weight: bold;color: darkblue;"></span>좌석 중 잔여 좌석
+                            <span class="currentQuantity" style="font-weight: bold; color: darkred;"></span>개 남았습니다.
+                        </dd>
                     </div>
                     <button class="btn btn-primary" id="purchaseButton">구매하기</button>
                 </div>
@@ -49,11 +52,11 @@
 <script>
     function fetchItem() {
         const url = window.location.href;
-        let itemId = url.split("/").pop(); //url에서 끝값에 위치한 id번호 가져오기
-        document.getElementById("this-item").value = itemId;
+        let itemName = url.split("=").pop(); //url에서 끝값에 위치한 name 가져오기
+        document.getElementById("this-item").value = itemName;
 
         //getItem
-        fetch(`/tour-ranger/items/${itemId}`)
+        fetch(`/tour-ranger/items?itemName=` + itemName)
             .then(response => response.json())
             .then(data => {
                 const name = data.name;
@@ -105,7 +108,7 @@
                 document.querySelector(".name").textContent = name;
                 document.querySelector(".price").textContent = formattedOriginalPrice;
                 document.querySelector(".discountPrice").textContent = formattedDiscountPrice;
-                document.querySelector(".currentQuantity").textContent =currentQuantity;
+                document.querySelector(".currentQuantity").textContent = currentQuantity;
                 document.querySelector(".maxQuantity").textContent = maxQuantity;
                 document.querySelector(".departureTime").textContent = formattedDepartureTime;
                 document.querySelector(".arrivalTime").textContent = formattedArrivalTime;
@@ -116,13 +119,13 @@
                 priceText.style.textDecoration = "line-through"; // 취소선 스타일 적용
 
 
-                fetchImage(airlineId,travelAgencyId,thumbnailImageId);
+                fetchImage(airlineId, travelAgencyId, thumbnailImageId);
             })
             .catch(error => {
                 console.error("Error fetching item data:", error);
             });
 
-        function fetchImage(airlineId, travelAgencyId,thumbnailImageId) {
+        function fetchImage(airlineId, travelAgencyId, thumbnailImageId) {
             document.getElementById("airlineImage").src = "/tour-ranger/airlines/" + airlineId;
             document.getElementById("travelAgencyImage").src = "/tour-ranger/travelAgencies/" + travelAgencyId;
             document.getElementById("thumbnailImage").src = "/tour-ranger/thumbnailImages/" + thumbnailImageId;
@@ -154,7 +157,7 @@
                         alert(errorMessage);
                     } else {
                         alert("구매에 성공 했습니다.");
-                        window.location.href = "/tour-ranger/front/items/"+itemId;
+                        window.location.href = "/tour-ranger/front/items/" + itemId;
                     }
                 })
                 .catch(error => {
