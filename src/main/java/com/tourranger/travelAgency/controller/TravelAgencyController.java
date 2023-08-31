@@ -24,9 +24,9 @@ import lombok.RequiredArgsConstructor;
 public class TravelAgencyController {
 	private final TravelAgencyService travelAgencyService;
 
-	@GetMapping("/travelAgencies")
+	@GetMapping("/travelAgencies/{travelAgencyId}")
 	@Operation(summary = "여행사 이미지파일 조회", description = "여행사 이미지 url의 Resource를 조회합니다.")
-	public ResponseEntity<Resource> getTravelAgency(@RequestParam String travelAgencyName) throws MalformedURLException {
-		return ResponseEntity.status(HttpStatus.OK).body(travelAgencyService.getTravelAgency(travelAgencyName));
+	public ResponseEntity<Resource> getTravelAgency(@PathVariable Long travelAgencyId) throws MalformedURLException {
+		return ResponseEntity.status(HttpStatus.OK).body(travelAgencyService.getTravelAgency(travelAgencyId));
 	}
 }

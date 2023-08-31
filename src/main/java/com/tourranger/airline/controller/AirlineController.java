@@ -24,9 +24,9 @@ import lombok.RequiredArgsConstructor;
 public class AirlineController {
 	private final AirlineService airlineService;
 
-	@GetMapping("/airlines")
+	@GetMapping("/airlines/{airlineId}")
 	@Operation(summary = "항공사 이미지파일 조회", description = "항공사 이미지 url의 Resource를 조회합니다.")
-	public ResponseEntity<Resource> getAirline(@RequestParam String airlineName) throws MalformedURLException {
-		return ResponseEntity.status(HttpStatus.OK).body(airlineService.getAirline(airlineName));
+	public ResponseEntity<Resource> getAirline(@PathVariable Long airlineId) throws MalformedURLException {
+		return ResponseEntity.status(HttpStatus.OK).body(airlineService.getAirline(airlineId));
 	}
 }

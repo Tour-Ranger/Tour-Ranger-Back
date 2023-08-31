@@ -25,15 +25,15 @@ public class TravelAgencyServiceImpl implements TravelAgencyService {
 	//이미지를 조회하는 메서드
 	@Override
 	@Transactional(readOnly = true)
-	public Resource getTravelAgency(String travelAgencyName) throws MalformedURLException {
-		TravelAgency travelAgency = findTravelAgency(travelAgencyName);
+	public Resource getTravelAgency(Long travelAgencyId) throws MalformedURLException {
+		TravelAgency travelAgency = findTravelAgency(travelAgencyId);
 		return new UrlResource(travelAgency.getUrl());
 	}
 
 	// 이미지 객체를 repository에서 찾는 메서드
 	// id로 조회했을 때, 존재하지 않는 이미지인 경우 Exception 발생
-	private TravelAgency findTravelAgency(String name) {
-		return travelAgencyRepository.findTopByName(name).orElseThrow(() ->
+	private TravelAgency findTravelAgency(Long travelAgencyId) {
+		return travelAgencyRepository.findById(travelAgencyId).orElseThrow(() ->
 			new CustomException(CustomErrorCode.IMAGE_NOT_FOUND, null)
 
 		);
