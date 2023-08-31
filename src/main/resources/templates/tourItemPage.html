@@ -8,7 +8,7 @@
 <body>
 <div class="container mt-5">
     <h2 class="card-title">오늘의 Hot Deal!</h2>
-
+    <input id="this-item" value="" style="display: none;">
     <div class="card">
         <div class="card-body">
             <h3 class="detail-header name" style="border-bottom: 2px solid black;">9월 18일 단 하루! 유럽여행 초특가 딜!</h3>
@@ -52,6 +52,8 @@
     function fetchItem() {
         const url = window.location.href;
         let itemId = url.split("/").pop(); //url에서 끝값에 위치한 id번호 가져오기
+        document.getElementById("this-item").value = itemId;
+
         //getItem
         fetch(`/tour-ranger/items/${itemId}`)
             .then(response => response.json())
@@ -95,11 +97,9 @@
                 document.querySelector(".travelAgencyName").textContent = travelAgencyName;
                 document.querySelector(".airlineName").textContent = airlineName;
 
-                //가격 할인이 적용되었을 때, 현재가격 취소선처리
-                if (price !== discountPrice) {
-                    const priceText = document.getElementById("price"); // id가 "priceSpan"인 요소 선택
-                    priceText.style.textDecoration = "line-through"; // 취소선 스타일 적용
-                }
+                const priceText = document.getElementById("price"); // id가 "priceSpan"인 요소 선택
+                priceText.style.textDecoration = "line-through"; // 취소선 스타일 적용
+
 
                 fetchImage(airlineId,travelAgencyId,thumbnailImageId);
             })
@@ -116,7 +116,7 @@
         //구매하기 버튼 클릭
         document.getElementById("purchaseButton").addEventListener("click", function () {
             const email = document.getElementById("email").value;
-            const itemId = window.id;
+            const itemId = document.getElementById("this-item").value;
             if (!email) {
                 alert("이메일을 입력해 주세요.");
                 return;
