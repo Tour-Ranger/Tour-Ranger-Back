@@ -24,15 +24,15 @@ public class AirlineServiceImpl implements AirlineService {
 	//이미지를 조회하는 메서드
 	@Override
 	@Transactional(readOnly = true)
-	public Resource getAirline(Long airlineId) throws MalformedURLException {
-		Airline airline = findAirline(airlineId);
+	public Resource getAirline(String airlineName) throws MalformedURLException {
+		Airline airline = findAirline(airlineName);
 		return new UrlResource(airline.getUrl());
 	}
 
 	// 이미지 객체를 repository에서 찾는 메서드
 	// id로 조회했을 때, 존재하지 않는 이미지인 경우 Exception 발생
-	private Airline findAirline(Long airlineId) {
-		return airlineRepository.findById(airlineId).orElseThrow(() ->
+	private Airline findAirline(String airlineName) {
+		return airlineRepository.findTopByName(airlineName).orElseThrow(() ->
 			new CustomException(CustomErrorCode.IMAGE_NOT_FOUND, null)
 		);
 	}
