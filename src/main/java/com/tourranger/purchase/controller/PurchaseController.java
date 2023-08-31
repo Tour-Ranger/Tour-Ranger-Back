@@ -19,10 +19,10 @@ public class PurchaseController {
 	private final PurchaseService purchaseService;
 
 	@Operation(summary = "상품 주문", description = "PurchaseRequestDto로 유저의 정보를 받아와서 주문을 완료합니다.")
-	@PostMapping("/purchases/{itemId}")
-	public ResponseEntity<ApiResponseDto> purchaseItem(@PathVariable Long itemId,
+	@PostMapping("/purchases")
+	public ResponseEntity<ApiResponseDto> purchaseItem(@RequestParam String itemName,
 													   @Valid @RequestBody PurchaseRequestDto requestDto) {
-		purchaseService.purchaseItem(itemId, requestDto);
+		purchaseService.purchaseItem(itemName, requestDto);
 		return ResponseEntity.ok().body(new ApiResponseDto(HttpStatus.OK.value(), "주문 완료"));
 	}
 }

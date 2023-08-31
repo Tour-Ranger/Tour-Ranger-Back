@@ -5,8 +5,8 @@ import com.tourranger.purchase.dto.PurchaseRequestDto;
 public interface PurchaseService {
 	/**
 	 * 상품 주문
-	 * @param itemId 주문할 상품 ID
+	 * @param itemName 주문할 상품 이름
 	 * @param requestDto 상품 주문을 위한 요청 정보
 	 */
-	void purchaseItem(Long itemId, PurchaseRequestDto requestDto);
+	void purchaseItem(String itemName, PurchaseRequestDto requestDto);
 }

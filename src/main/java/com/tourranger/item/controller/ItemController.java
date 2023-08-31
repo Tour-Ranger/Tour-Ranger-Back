@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -19,9 +20,9 @@ public class ItemController {
 	private final ItemService itemService;
 
 	@Operation(summary = "상품 조회", description = "ItemId에 맞는 상품의 정보를 조회합니다.")
-	@GetMapping("/items/{itemId}")
-	public ResponseEntity<ItemResponseDto> getItem(@PathVariable Long itemId) {
-		ItemResponseDto responseDto = itemService.getItem(itemId);
+	@GetMapping("/items")
+	public ResponseEntity<ItemResponseDto> getItem(@RequestParam String itemName) {
+		ItemResponseDto responseDto = itemService.getItem(itemName);
 		return ResponseEntity.ok().body(responseDto);
 	}
 

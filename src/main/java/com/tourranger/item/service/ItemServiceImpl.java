@@ -14,14 +14,14 @@ public class ItemServiceImpl implements ItemService {
 
 	private final ItemRepository itemRepository;
 	@Override
-	public ItemResponseDto getItem(Long itemId) {
-		Item item = findItem(itemId);
+	public ItemResponseDto getItem(String itemName) {
+		Item item = findItem(itemName);
 		ItemResponseDto responseDto = new ItemResponseDto(item);
 		return responseDto;
 	}
 
-	public Item findItem(Long id) {
-		return itemRepository.findById(id).orElseThrow(() ->
+	public Item findItem(String name) {
+		return itemRepository.findByName(name).orElseThrow(() ->
 				new CustomException(CustomErrorCode.ITEM_NOT_FOUND, null)
 		);
 	}
