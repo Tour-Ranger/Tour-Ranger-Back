@@ -29,11 +29,9 @@
                         <dt>일정</dt>
                         <dd class="period"></dd>
                         <dt>한국출발🛫</dt>
-                        <dd class="departureTime"></dd>
-<!--                        <p class="lead">여행 출발일시: <span class="departureTime"></span></p>-->
+                        <dd class="departureTime" type="datetime-local"></dd>
                         <dt>한국도착🛬</dt>
-                        <dd class="arrivalTime"></dd>
-<!--                        <p class="lead">여행 도착일시: <span class="arrivalTime"></span></p>-->
+                        <dd class="arrivalTime" type="datetime-local"></dd>
                         <p class="lead" id="price">상품 가격: <span class="price" ></span></p>
                         <p class="lead text-danger" style="font-weight: bold">할인적용가: <span class="discountPrice"></span></p>
                         <label for="email" class="form-label">주문자 Email</label>
@@ -86,14 +84,31 @@
                 const formattedOriginalPrice = new Intl.NumberFormat("ko-KR", numberFormatOptions).format(price);
                 const formattedDiscountPrice = new Intl.NumberFormat("ko-KR", numberFormatOptions).format(discountPrice);
 
+
+                function formatDate(dateTimeString) {
+                    const options = {
+                        year: "numeric",
+                        month: "long",
+                        day: "numeric",
+                        hour: "2-digit",
+                        minute: "2-digit"
+                    };
+                    const date = new Date(dateTimeString);
+                    return date.toLocaleString("en-US", options);
+                }
+
+                const formattedDepartureTime = formatDate(departureTime);
+                const formattedArrivalTime = formatDate(arrivalTime);
+                console.log(formattedDepartureTime);
+
                 document.querySelector(".period").textContent = period;
                 document.querySelector(".name").textContent = name;
                 document.querySelector(".price").textContent = formattedOriginalPrice;
                 document.querySelector(".discountPrice").textContent = formattedDiscountPrice;
                 document.querySelector(".currentQuantity").textContent =currentQuantity;
                 document.querySelector(".maxQuantity").textContent = maxQuantity;
-                document.querySelector(".departureTime").textContent = departureTime;
-                document.querySelector(".arrivalTime").textContent = arrivalTime;
+                document.querySelector(".departureTime").textContent = formattedDepartureTime;
+                document.querySelector(".arrivalTime").textContent = formattedArrivalTime;
                 document.querySelector(".travelAgencyName").textContent = travelAgencyName;
                 document.querySelector(".airlineName").textContent = airlineName;
 
