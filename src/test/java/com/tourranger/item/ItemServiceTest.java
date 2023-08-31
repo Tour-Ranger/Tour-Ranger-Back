@@ -34,7 +34,8 @@ public class ItemServiceTest {
 	@Autowired
 	private ItemServiceImpl itemService;
 
-	Long itemId = null;
+	// Long itemId = null;
+	String itemName = "";
 	Long travelAgencyId = null;
 	Long airlineId = null;
 	Long thumbnailImageId = null;
@@ -76,7 +77,8 @@ public class ItemServiceTest {
 		Item targetItem = itemRepository.findTopByOrderByIdDesc().orElse(null);
 
 		// 마지막에 생성된 아이템에 관한 정보 전역 필드에 저장
-		itemId = targetItem.getId();
+		// itemId = targetItem.getId();
+		itemName = targetItem.getName();
 		travelAgencyId = targetItem.getTravelAgency().getId();
 		airlineId = targetItem.getAirline().getId();
 		thumbnailImageId = targetItem.getThumbnailImage().getId();
@@ -87,10 +89,10 @@ public class ItemServiceTest {
 	@Transactional
 	@DisplayName("getItem Test")
 	void getItemTest() {
-		ItemResponseDto responseDto = itemService.getItem(itemId);
+		ItemResponseDto responseDto = itemService.getItem(itemName);
 
 		// ItemResponseDto 값 확인
-		assertEquals(itemId, responseDto.getId());
+		assertEquals(itemName, responseDto.getName());
 		assertEquals(name, responseDto.getName());
 		assertEquals(price, responseDto.getPrice());
 		assertEquals(discountPrice, responseDto.getDiscountPrice());
