@@ -31,8 +31,8 @@ public class AirlineServiceImpl implements AirlineService {
 
 	// 이미지 객체를 repository에서 찾는 메서드
 	// id로 조회했을 때, 존재하지 않는 이미지인 경우 Exception 발생
-	private Airline findAirline(String airlineName) {
-		return airlineRepository.findTopByName(airlineName).orElseThrow(() ->
+	private Airline findAirline(String name) {
+		return airlineRepository.findTopByName(name).orElseThrow(() ->
 			new CustomException(CustomErrorCode.IMAGE_NOT_FOUND, null)
 		);
 	}

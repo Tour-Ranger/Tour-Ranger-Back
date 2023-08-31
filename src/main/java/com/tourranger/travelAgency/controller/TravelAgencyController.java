@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.tourranger.travelAgency.service.TravelAgencyService;
@@ -23,9 +24,9 @@ import lombok.RequiredArgsConstructor;
 public class TravelAgencyController {
 	private final TravelAgencyService travelAgencyService;
 
-	@GetMapping("/travelAgencies/{travelAgencyId}")
+	@GetMapping("/travelAgencies")
 	@Operation(summary = "여행사 이미지파일 조회", description = "여행사 이미지 url의 Resource를 조회합니다.")
-	public ResponseEntity<Resource> getTravelAgency(@PathVariable Long travelAgencyId) throws MalformedURLException {
-		return ResponseEntity.status(HttpStatus.OK).body(travelAgencyService.getTravelAgency(travelAgencyId));
+	public ResponseEntity<Resource> getTravelAgency(@RequestParam String travelAgencyName) throws MalformedURLException {
+		return ResponseEntity.status(HttpStatus.OK).body(travelAgencyService.getTravelAgency(travelAgencyName));
 	}
 }
