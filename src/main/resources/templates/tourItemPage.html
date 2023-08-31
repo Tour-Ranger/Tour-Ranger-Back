@@ -139,6 +139,7 @@
                         alert(errorMessage);
                     } else {
                         alert("구매에 성공 했습니다.");
+                        window.location.href = "/tour-ranger/front/items/"+itemId;
                     }
                 })
                 .catch(error => {
