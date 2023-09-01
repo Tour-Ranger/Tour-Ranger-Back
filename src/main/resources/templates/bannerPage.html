@@ -3,13 +3,352 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/paginationjs/2.1.4/pagination.css"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
+<style>
+    .list-inner {
+        outline: solid 0.5px black;
+    }
+</style>
 <body>
-<div class="container d-flex justify-content-center align-items-center vh-100">
+<div class="container d-flex justify-content-center align-items-center ">
     <a th:href="@{/tour-ranger/front/items/1}">
-        <img alt="banner" th:src="@{/image/banner.png}" class="img-fluid" />
+        <img alt="banner" th:src="@{/image/banner.png}" class="img-fluid"
+             style="max-width: 50%; height: 100%; padding: 25px; margin-left:30%;"/>
     </a>
 </div>
+
+<!-- 검색창 표시 -->
+<div class="container mt-5">
+    <h1 class="text-center">Search</h1>
+    <div class="row justify-content-center mt-3">
+        <div class="col-md-4">
+            <form class="form-inline">
+                <input type="text" id="search" class="form-control mr-2" placeholder="상품 이름으로 검색">
+                <button type="submit" class="btn btn-primary" onclick="searchItems(0,5)">검색</button>
+                <div class="col-md-2 mt-3 mt-md-0">
+                    <select id="condition" class="form-control">
+                        <option value="latest">최신순</option>
+                        <option value="priceLowToHigh">가격 낮은 순</option>
+                        <option value="priceHighToLow">가격 높은 순</option>
+                    </select>
+                </div>
+            </form>
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- 상품 목록 표시 -->
+<table>
+    <div id="itemTableBody">
+        <!-- 아이템 목록이 여기에 동적으로 추가될 것입니다. -->
+    </div>
+</table>
+
+<!-- 페이지네이션 -->
+<div class="d-flex justify-content-center">
+    <nav aria-label="...">
+        <ul class="pagination" id="pagination">
+            <!-- 이전 페이지로 가기 버튼 -->
+            <li class="page-item disabled" id="page-button-previous">
+                <a class="page-link" href="#" tabindex="-1" aria-disabled="true" onclick="goPreviousPage()">Previous</a>
+            </li>
+            <!-- 페이지 버튼들 -->
+            <li class="page-item active" id="page-button-0" aria-current="page"><a class="page-link" href="#" onclick="changePage(0)">1</a></li>
+            <li class="page-item" id="page-button-1"><a class="page-link" href="#" onclick="changePage(1)">2</a></li>
+            <li class="page-item" id="page-button-2"><a class="page-link" href="#" onclick="changePage(2)">3</a></li>
+            <li class="page-item" id="page-button-3"><a class="page-link" href="#" onclick="changePage(3)">4</a></li>
+            <li class="page-item" id="page-button-4"><a class="page-link" href="#" onclick="changePage(4)">5</a></li>
+            <li class="page-item" id="page-button-5"><a class="page-link" href="#" onclick="changePage(5)">6</a></li>
+            <li class="page-item" id="page-button-6"><a class="page-link" href="#" onclick="changePage(6)">7</a></li>
+            <li class="page-item" id="page-button-7"><a class="page-link" href="#" onclick="changePage(7)">8</a></li>
+            <li class="page-item" id="page-button-8"><a class="page-link" href="#" onclick="changePage(8)">9</a></li>
+            <li class="page-item" id="page-button-9"><a class="page-link" href="#" onclick="changePage(9)">10</a></li>
+            <!-- 다음 페이지로 가기 버튼 -->
+            <li class="page-item" id="page-button-next">
+                <a class="page-link" href="#" onclick="goNextPage()">Next</a>
+            </li>
+        </ul>
+    </nav>
+</div>
+<script>
+
+    let itemsPerPage = 5; // 페이지당 아이템 수
+    let currentPage = 0; // 현재 페이지
+    let searched = false;
+
+    function changePage(newPage) {
+
+        // 현재 페이지 버튼의 active 클래스 제거
+        const previousActiveButton = document.querySelector("#pagination .page-item.active");
+        previousActiveButton.classList.remove("active");
+
+        // 선택한 페이지 버튼에 active 클래스 추가
+        const newActiveButton = document.querySelector(`#pagination #page-button-${newPage}`);
+        newActiveButton.classList.add("active");
+
+        currentPage = newPage;
+
+        // 이전 버튼과 다음 버튼 상태 업데이트 0이하 못누르도록, 총 페이지 수만큼 못누르도록 로직 필요
+        const previousButton = document.querySelector("#page-button-previous");
+        // const nextButton = document.querySelector("#page-button-next");
+
+        if (currentPage === 0) {
+            previousButton.classList.add("disabled");
+        } else {
+            previousButton.classList.remove("disabled");
+        }
+
+        // // 여기서 totalPages는 총 페이지 수에 맞게 변경해야 합니다.
+        // // const totalPages = 10; // 예시로 6으로 설정
+        // if (currentPage === totalPages - 1) {
+        //     nextButton.classList.add("disabled");
+        // } else {
+        //     nextButton.classList.remove("disabled");
+        // }
+
+        //검색어 입력한 상태인 경우, 검색결과에 대한 페이지 이벤트
+        if (searched)
+            searchItems(currentPage, itemsPerPage);
+        else
+            displayItems(currentPage, itemsPerPage);
+    }
+
+    function goNextPage() {
+        // 현재 페이지 버튼의 active 클래스 제거
+        const previousActiveButton = document.querySelector("#pagination .page-item.active");
+        previousActiveButton.classList.remove("active");
+
+        // next 페이지 버튼에 active 클래스 추가
+        const newActiveButton = document.querySelector(`#pagination #page-button-next`);
+        newActiveButton.classList.add("active");
+        currentPage = currentPage + 1;
+        if (searched)
+            searchItems(currentPage, itemsPerPage);
+        else
+            displayItems(currentPage, itemsPerPage);
+    }
+
+    function goPreviousPage() {
+        if (currentPage > 0) {
+            // 현재 페이지 버튼의 active 클래스 제거
+            const previousActiveButton = document.querySelector("#pagination .page-item.active");
+            previousActiveButton.classList.remove("active");
+
+            // 선택한 페이지 버튼에 active 클래스 추가
+            const newActiveButton = document.querySelector(`#pagination #page-button-previous`);
+            newActiveButton.classList.add("active");
+
+            currentPage = currentPage - 1;
+            if (searched)
+                searchItems(currentPage, itemsPerPage);
+            else
+                displayItems(currentPage, itemsPerPage);
+        }
+    }
+
+    function searchItems(page, size) {
+        let search = document.getElementById("search").value;
+        let condition = document.getElementById("condition").value;
+        searched = true;
+
+        fetch(`/tour-ranger/items?search=${search}&condition=${condition}&page=${page}&size=${size}`)
+            .then(function (response) {
+                return response.json();
+            })
+            .then(function (responseDto) {
+                $('#itemTableBody').empty();
+
+                responseDto.forEach(function (responseDto) {
+                    let itemId = responseDto.id;
+                    let name = responseDto.name;
+                    let discountPrice = responseDto.discountPrice;
+                    let period = responseDto.period;
+                    let airlineId = responseDto.airlineId;
+                    let airlineName = responseDto.airlineName;
+                    let thumbnailImageId = responseDto.thumbnailImageId;
+                    let departureTime = responseDto.departureTime;
+                    let arrivalTime = responseDto.arrivalTime;
+
+                    // 숫자 포맷을 위한 옵션 설정
+                    const numberFormatOptions = {
+                        style: "currency",
+                        currency: "KRW", // 원화 표시
+                        minimumFractionDigits: 0,
+                        maximumFractionDigits: 0,
+                    };
+
+                    // 천 단위 구분 기호를 포함한 금액 포맷팅
+                    const formattedDiscountPrice = new Intl.NumberFormat("ko-KR", numberFormatOptions).format(discountPrice);
+
+                    function formatDate(dateTimeString) {
+                        const options = {
+                            year: "numeric",
+                            month: "long",
+                            day: "numeric"
+                        };
+                        const date = new Date(dateTimeString);
+                        return date.toLocaleString("ko-KR", options);
+                    }
+
+                    const formattedDepartureDate = formatDate(departureTime);
+                    const formattedArrivalDate = formatDate(arrivalTime);
+
+                    let temp_html = `<div class="card mb-3" style="max-width: 1040px; height: 100%;  margin:auto;">
+                                        <div class="row g-0">
+                                            <div class="col-md-4">
+                                                <img src="/tour-ranger/thumbnailImages/${thumbnailImageId}" class="img-fluid rounded-start" alt="...">
+                                            </div>
+                                            <div class="col-md-8" >
+                                                <div class="card-body">
+                                                    <h5 class="card-title">${name}</h5>
+                                                    <div class="period" style="display: flex; align-items: center; ">
+                                                        <dl>
+                                                            <dt>여행일정</dt>
+                                                            <dd>${period}</dd>
+                                                        </dl>
+                                                        <dl style="padding-left: 50px;">
+                                                            <dt>여행기간</dt>
+                                                            <dd>${formattedDepartureDate} ~ ${formattedArrivalDate}</dd>
+                                                        </dl>
+                                                    </div>
+                                                    <ul class="flight">
+                                                        <div class="no">상품번호 ${itemId}</div>
+                                                        <img src="/tour-ranger/airlines/${airlineId}" style="width: 25px;height: 25px">${airlineName}
+                                                        <strong>${formattedDiscountPrice}</strong><em>원 ~</em>
+                                                        <button class="btn-type-1 color--black" name="btnDetail" data-no="1" data-id="${itemId}"
+                                                                value="${itemId}" onclick="showItemButton(this)">자세히보기
+                                                        </button>
+                                                    </ul>
+
+                                            </div>
+                                        </div>
+                                    </div>`
+                    $('#itemTableBody').append(temp_html);
+                });
+            }).catch(function (error) {
+            console.error("Item 리스트 불러오기 실패", error);
+        })
+    }
+
+
+    function displayItems(page, size) {
+
+        fetch(`/tour-ranger/items?page=${page}&size=${size}`)
+            .then(function (response) {
+                return response.json();
+            })
+            .then(function (responseDto) {
+                $('#itemTableBody').empty();
+
+                responseDto.forEach(function (responseDto) {
+                    let itemId = responseDto.id;
+                    let name = responseDto.name;
+                    let price = responseDto.price;
+                    let discountPrice = responseDto.discountPrice;
+                    let period = responseDto.period;
+                    let airlineId = responseDto.airlineId;
+                    let airlineName = responseDto.airlineName;
+                    let thumbnailImageId = responseDto.thumbnailImageId;
+                    let travelAgencyId = responseDto.travelAgencyId;
+                    let departureTime = responseDto.departureTime;
+                    let arrivalTime = responseDto.arrivalTime;
+
+                    // 숫자 포맷을 위한 옵션 설정
+                    const numberFormatOptions = {
+                        style: "currency",
+                        currency: "KRW", // 원화 표시
+                        minimumFractionDigits: 0,
+                        maximumFractionDigits: 0,
+                    };
+
+                    // 천 단위 구분 기호를 포함한 금액 포맷팅
+                    const formattedOriginalPrice = new Intl.NumberFormat("ko-KR", numberFormatOptions).format(price);
+                    const formattedDiscountPrice = new Intl.NumberFormat("ko-KR", numberFormatOptions).format(discountPrice);
+
+                    function formatDate(dateTimeString) {
+                        const options = {
+                            year: "numeric",
+                            month: "long",
+                            day: "numeric"
+                        };
+                        const date = new Date(dateTimeString);
+                        return date.toLocaleString("ko-KR", options);
+                    }
+
+                    const formattedDepartureDate = formatDate(departureTime);
+                    const formattedArrivalDate = formatDate(arrivalTime);
+
+                    let temp_html = `<div class="card mb-3" style="max-width: 1040px; height: 100%;  margin:auto;">
+                                        <div class="row g-0">
+                                            <div class="col-md-4">
+                                                <img src="/tour-ranger/thumbnailImages/${thumbnailImageId}" class="img-fluid rounded-start" alt="...">
+                                            </div>
+                                            <div class="col-md-8" >
+                                                <div class="card-body">
+                                                    <h5 class="card-title">${name}</h5>
+                                                    <div class="period" style="display: flex; align-items: center; ">
+                                                        <dl>
+                                                            <dt>여행일정</dt>
+                                                            <dd>${period}</dd>
+                                                        </dl>
+                                                        <dl style="padding-left: 50px;">
+                                                            <dt>여행기간</dt>
+                                                            <dd>${formattedDepartureDate} ~ ${formattedArrivalDate}</dd>
+                                                        </dl>
+                                                    </div>
+                                                    <ul class="flight">
+                                                        <div class="no">상품번호 ${itemId}</div>
+                                                        <img src="/tour-ranger/airlines/${airlineId}" style="width: 25px;height: 25px">${airlineName}
+                                                        <strong>${formattedDiscountPrice}</strong><em>원 ~</em>
+                                                        <button class="btn-type-1 color--black" name="btnDetail" data-no="1" data-id="${itemId}"
+                                                                value="${itemId}" onclick="showItemButton(this)">자세히보기
+                                                        </button>
+                                                    </ul>
+
+                                            </div>
+                                        </div>
+                                    </div>`
+                    $('#itemTableBody').append(temp_html);
+                });
+            }).catch(function (error) {
+            console.error("Item 리스트 불러오기 실패", error);
+        })
+    }
+
+    function showItemButton(button) {
+        let itemId = button.value;
+        window.location.href = "/tour-ranger/front/items/" + itemId;
+    }
+
+    function updatePaginationButtons(totalPages) {
+        const pagination = document.getElementById("pagination");
+        pagination.innerHTML = "";
+
+        for (let i = 0; i < totalPages; i++) {
+            const button = document.createElement("button");
+            button.innerText = i + 1;
+            button.addEventListener("click", () => {
+                currentPage = i;
+                displayItems(currentPage, itemsPerPage);
+            });
+            pagination.appendChild(button);
+        }
+    }
+
+    window.onload = function () {
+        const initialPage = 0; // 초기 페이지
+        displayItems(initialPage, itemsPerPage); // 아이템 데이터 불러오기
+    };
+
+</script>
 </body>
+
+
 </html>
