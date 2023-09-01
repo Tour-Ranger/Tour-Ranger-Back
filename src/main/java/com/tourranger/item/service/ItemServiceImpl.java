@@ -32,8 +32,6 @@ public class ItemServiceImpl implements ItemService {
 
     @Override
     public List<ItemResponseDto> getSearchedItemList(String search, String condition, Pageable pageable) throws UnsupportedEncodingException {
-        System.out.println("search= " + search);
-        System.out.println("condition= " + condition);
 
         return switch (condition) {
             case "latest" -> // 최신순
