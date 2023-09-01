@@ -3,7 +3,6 @@ package com.tourranger.item.service;
 import com.tourranger.item.dto.ItemResponseDto;
 import org.springframework.data.domain.Pageable;
 
-import java.io.UnsupportedEncodingException;
 import java.util.List;
 
 public interface ItemService {
@@ -27,5 +26,5 @@ public interface ItemService {
      * @param pageable  사용자가 누른 페이지정보
      * @return 검색결과가 반영된 해당 페이지의 ItemList
      */
-    List<ItemResponseDto> getSearchedItemList(String search, String condition, Pageable pageable) throws UnsupportedEncodingException;
+    List<ItemResponseDto> getSearchedItemList(String search, String condition, Pageable pageable);
 }

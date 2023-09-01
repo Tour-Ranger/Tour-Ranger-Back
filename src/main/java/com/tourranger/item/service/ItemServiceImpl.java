@@ -9,7 +9,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.io.UnsupportedEncodingException;
 import java.util.List;
 
 @Service
@@ -31,7 +30,7 @@ public class ItemServiceImpl implements ItemService {
     }
 
     @Override
-    public List<ItemResponseDto> getSearchedItemList(String search, String condition, Pageable pageable) throws UnsupportedEncodingException {
+    public List<ItemResponseDto> getSearchedItemList(String search, String condition, Pageable pageable) {
 
         return switch (condition) {
             case "latest" -> // 최신순

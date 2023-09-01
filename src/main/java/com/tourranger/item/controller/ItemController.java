@@ -9,7 +9,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.io.UnsupportedEncodingException;
 import java.util.List;
 
 @RestController
@@ -30,7 +29,7 @@ public class ItemController {
     @GetMapping("/items")
     public ResponseEntity<List<ItemResponseDto>> getItemList(@RequestParam(name = "search", required = false) String search,
                                                           @RequestParam(name = "condition", required = false) String condition,
-                                                          Pageable pageable) throws UnsupportedEncodingException {
+                                                          Pageable pageable) {
         //검색어 입력으로 조회하는 경우
         if (search != null && !search.isEmpty()) {
             return ResponseEntity.ok().body(itemService.getSearchedItemList(search, condition, pageable));
