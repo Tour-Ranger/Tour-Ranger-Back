@@ -60,8 +60,7 @@
                 <a class="page-link" href="#" tabindex="-1" aria-disabled="true" onclick="goPreviousPage()">Previous</a>
             </li>
             <!-- 페이지 버튼들 -->
-            <li class="page-item active" id="page-button-0" aria-current="page"><a class="page-link" href="#"
-                                                                                   onclick="changePage(0)">1</a></li>
+            <li class="page-item active" id="page-button-0" aria-current="page"><a class="page-link" href="#" onclick="changePage(0)">1</a></li>
             <li class="page-item" id="page-button-1"><a class="page-link" href="#" onclick="changePage(1)">2</a></li>
             <li class="page-item" id="page-button-2"><a class="page-link" href="#" onclick="changePage(2)">3</a></li>
             <li class="page-item" id="page-button-3"><a class="page-link" href="#" onclick="changePage(3)">4</a></li>
@@ -169,13 +168,11 @@
                 responseDto.forEach(function (responseDto) {
                     let itemId = responseDto.id;
                     let name = responseDto.name;
-                    let price = responseDto.price;
                     let discountPrice = responseDto.discountPrice;
                     let period = responseDto.period;
                     let airlineId = responseDto.airlineId;
                     let airlineName = responseDto.airlineName;
                     let thumbnailImageId = responseDto.thumbnailImageId;
-                    let travelAgencyId = responseDto.travelAgencyId;
                     let departureTime = responseDto.departureTime;
                     let arrivalTime = responseDto.arrivalTime;
 
@@ -188,7 +185,6 @@
                     };
 
                     // 천 단위 구분 기호를 포함한 금액 포맷팅
-                    // const formattedOriginalPrice = new Intl.NumberFormat("ko-KR", numberFormatOptions).format(price);
                     const formattedDiscountPrice = new Intl.NumberFormat("ko-KR", numberFormatOptions).format(discountPrice);
 
                     function formatDate(dateTimeString) {
