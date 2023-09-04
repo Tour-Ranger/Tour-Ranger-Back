@@ -1,6 +1,5 @@
 package com.tourranger.travelAgency.service;
 
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,7 +20,6 @@ public class TravelAgencyServiceImpl implements TravelAgencyService {
 	//이미지를 조회하는 메서드
 	@Override
 	@Transactional(readOnly = true)
-	@Cacheable(key = "#travelAgencyId", value = "travelAgency")
 	public String getTravelAgency(Long travelAgencyId) {
 		TravelAgency travelAgency = findTravelAgency(travelAgencyId);
 		return travelAgency.getUrl();

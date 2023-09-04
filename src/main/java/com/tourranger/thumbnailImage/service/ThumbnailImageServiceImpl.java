@@ -1,7 +1,7 @@
 package com.tourranger.thumbnailImage.service;
 
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.tourranger.common.error.CustomErrorCode;
 import com.tourranger.common.exception.CustomException;
@@ -17,7 +17,7 @@ public class ThumbnailImageServiceImpl implements ThumbnailImageService {
 
 	//이미지를 조회하는 메서드
 	@Override
-	@Cacheable(key = "#thumbnailImageId", value = "thumbnailImage")
+	@Transactional(readOnly = true)
 	public String getThumbnailImage(Long thumbnailImageId) {
 		ThumbnailImage thumbnailImage = findThumbnailImage(thumbnailImageId);
 		return thumbnailImage.getUrl();

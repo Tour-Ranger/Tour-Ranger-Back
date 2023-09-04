@@ -13,8 +13,7 @@ import org.springframework.data.redis.serializer.RedisSerializationContext;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.jsontype.BasicPolymorphicTypeValidator;
-import com.fasterxml.jackson.databind.jsontype.PolymorphicTypeValidator;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
 @Configuration
@@ -27,7 +26,7 @@ public class RedisCacheConfig {
 		RedisCacheConfiguration config = RedisCacheConfiguration.defaultCacheConfig()
 			.serializeKeysWith(RedisSerializationContext.SerializationPair.fromSerializer(new StringRedisSerializer()))
 			.serializeValuesWith(RedisSerializationContext.SerializationPair.fromSerializer(redisSerializer))
-			.entryTtl(Duration.ofMinutes(10)); // 캐시 지속 시간 설정
+			.entryTtl(Duration.ofMinutes(20)); // 캐시 지속 시간 설정
 
 		return RedisCacheManager
 			.RedisCacheManagerBuilder
@@ -37,15 +36,11 @@ public class RedisCacheConfig {
 	}
 
 	private GenericJackson2JsonRedisSerializer getGenericJackson2JsonRedisSerializer() {
-		PolymorphicTypeValidator typeValidator = BasicPolymorphicTypeValidator
-			.builder()
-			.allowIfSubType(Object.class)
-			.build();
-
-		// ObjectMapper 를 사용해서 LocalTimeDate를 직렬화 하기 위해 매핑
 		ObjectMapper objectMapper = new ObjectMapper();
 		objectMapper.registerModule(new JavaTimeModule());
-		objectMapper.activateDefaultTyping(typeValidator, ObjectMapper.DefaultTyping.NON_FINAL);
+
+		//문자열 형식으로 날짜를 직렬화
+		objectMapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
 
 		GenericJackson2JsonRedisSerializer redisSerializer = new GenericJackson2JsonRedisSerializer(objectMapper);
 

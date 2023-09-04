@@ -1,6 +1,5 @@
 package com.tourranger.airline.service;
 
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,7 +18,6 @@ public class AirlineServiceImpl implements AirlineService {
 	//이미지를 조회하는 메서드
 	@Override
 	@Transactional(readOnly = true)
-	@Cacheable(key = "#airlineId", value = "airline")
 	public String getAirline(Long airlineId) {
 		Airline airline = findAirline(airlineId);
 		return airline.getUrl();
