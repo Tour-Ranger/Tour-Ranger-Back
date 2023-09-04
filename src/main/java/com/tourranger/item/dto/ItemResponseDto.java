@@ -23,8 +23,11 @@ public class ItemResponseDto {
 	private String period;
 	private LocalDateTime departureTime;
 	private LocalDateTime arrivalTime;
-	private String travelAgency;
-	private String airline;
+	private Long travelAgencyId;
+	private String travelAgencyName;
+	private Long airlineId;
+	private String airlineName;
+	private Long thumbnailImageId;
 
 	public ItemResponseDto(Item item) {
 		this.id = item.getId();
@@ -36,7 +39,10 @@ public class ItemResponseDto {
 		this.period = item.getPeriod();
 		this.departureTime = item.getDepartureTime();
 		this.arrivalTime = item.getArrivalTime();
-		this.travelAgency = item.getTravelAgency().getName();
-		this.airline = item.getAirline().getName();
+		this.travelAgencyId = item.getTravelAgency().getId();
+		this.travelAgencyName = item.getTravelAgency().getName();
+		this.airlineId = item.getAirline().getId();
+		this.airlineName = item.getAirline().getName();
+		this.thumbnailImageId = item.getThumbnailImage().getId();
 	}
 }

@@ -14,6 +14,12 @@ import com.tourranger.item.repository.ItemRepository;
 
 import lombok.RequiredArgsConstructor;
 
+import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Service;
+
+
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class ItemServiceImpl implements ItemService {
@@ -59,5 +65,6 @@ public class ItemServiceImpl implements ItemService {
 	public Item findItem(Long id) {
 		return itemRepository.findById(id).orElseThrow(() -> new CustomException(CustomErrorCode.ITEM_NOT_FOUND, null));
 	}
+
 
 }

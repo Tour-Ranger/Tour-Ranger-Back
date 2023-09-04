@@ -7,22 +7,37 @@
 </head>
 <body>
 <div class="container mt-5">
+    <h2 class="card-title">오늘의 Hot Deal!</h2>
+    <input id="this-item" value="" style="display: none;">
     <div class="card">
         <div class="card-body">
+            <h3 class="detail-header name" style="border-bottom: 2px solid black;">9월 18일 단 하루! 유럽여행 초특가 딜!</h3>
             <div class="row">
                 <div class="col-md-6">
-                    <h2 class="card-title">오늘의 Hot Deal</h2>
-                    <p class="card-text name">9월 18일 단 하루! 유럽여행 초특가 딜!</p>
-                    <img alt="Travel" class="img-fluid mb-3" id="dealImage"/>
+                    <img alt="Travel" class="img-fluid mb-3" id="thumbnailImage"/>
                 </div>
                 <div class="col-md-6 mt-3 pt-3">
-                    <div class="mb-3 mt-5 pt-5">
-                        <p class="lead">수량: <span class="quantity"></span></p>
-                        <p class="lead">기간: <span class="period"></span></p>
-                        <p class="lead">원래가격: <span class="price"></span></p>
-                        <p class="lead text-danger">할인가: <span class="discountPrice"></span></p>
+                    <div class="mb-3 mt-1 pt-1">
+                        <dt class="lead" style="display: flex; align-items: center; ">여행사 :
+                            <span class="travelAgencyName"></span>
+                            <img alt="Travel" class="img-fluid mb-3" id="travelAgencyImage"/>
+                        </dt>
+                        <dt class="lead" style="display: flex; align-items: center;">항공사 :
+                            <span class="airlineName"></span>
+                            <img alt="Airline" class="img-fluid mb-3" id="airlineImage"/>
+                        </dt>
+                        <dt>일정</dt>
+                        <dd class="period"></dd>
+                        <dt>한국출발🛫</dt>
+                        <dd class="departureTime"></dd>
+                        <dt>한국도착🛬</dt>
+                        <dd class="arrivalTime"></dd>
+                        <p class="lead" id="price">상품 가격: <span class="price" ></span></p>
+                        <p class="lead text-danger" style="font-weight: bold">할인적용가: <span class="discountPrice"></span></p>
                         <label for="email" class="form-label">주문자 Email</label>
                         <input type="email" class="form-control" id="email" placeholder="Enter your email">
+                        <dt>예약현황</dt>
+                        <dd>총 <span class="maxQuantity" style="font-weight: bold;color: darkblue;"></span>좌석 중 잔여 좌석 <span class="currentQuantity" style="font-weight: bold; color: darkred;"></span>개 남았습니다.</dd>
                     </div>
                     <button class="btn btn-primary" id="purchaseButton">구매하기</button>
                 </div>
@@ -33,16 +48,29 @@
 
 <script>
     function fetchItem() {
+        const url = window.location.href;
+        let itemId = url.split("/").pop(); //url에서 끝값에 위치한 id번호 가져오기
+        document.getElementById("this-item").value = itemId;
+
         //getItem
-        fetch("/tour-ranger/items/1")
+        fetch(`/tour-ranger/items/${itemId}`)
             .then(response => response.json())
             .then(data => {
                 const name = data.name;
-                const quantity = data.quantity;
-                const period = data.period;
                 const price = data.price;
                 const discountPrice = data.discountPrice;
-                window.id = data.id;
+                const currentQuantity = data.currentQuantity;
+                const maxQuantity = data.maxQuantity;
+                const departureTime = data.departureTime;
+                const arrivalTime = data.arrivalTime;
+                const travelAgencyId = data.travelAgencyId;
+                const travelAgencyName = data.travelAgencyName;
+                const airlineId = data.airlineId;
+                const airlineName = data.airlineName;
+                const thumbnailImageId = data.thumbnailImageId;
+                const period = data.period;
+
+                // window.id = data.id;
 
                 // 숫자 포맷을 위한 옵션 설정
                 const numberFormatOptions = {
@@ -56,41 +84,54 @@
                 const formattedOriginalPrice = new Intl.NumberFormat("ko-KR", numberFormatOptions).format(price);
                 const formattedDiscountPrice = new Intl.NumberFormat("ko-KR", numberFormatOptions).format(discountPrice);
 
+
+                function formatDate(dateTimeString) {
+                    const options = {
+                        year: "numeric",
+                        month: "long",
+                        day: "numeric",
+                        hour: "2-digit",
+                        minute: "2-digit"
+                    };
+                    const date = new Date(dateTimeString);
+                    return date.toLocaleString("ko-KR", options);
+                }
+
+                const formattedDepartureTime = formatDate(departureTime);
+                const formattedArrivalTime = formatDate(arrivalTime);
+                console.log(formattedDepartureTime);
+
+                document.querySelector(".period").textContent = period;
                 document.querySelector(".name").textContent = name;
-                document.querySelector(".period").textContent = period + "일";
-                document.querySelector(".quantity").textContent = quantity;
                 document.querySelector(".price").textContent = formattedOriginalPrice;
                 document.querySelector(".discountPrice").textContent = formattedDiscountPrice;
+                document.querySelector(".currentQuantity").textContent =currentQuantity;
+                document.querySelector(".maxQuantity").textContent = maxQuantity;
+                document.querySelector(".departureTime").textContent = formattedDepartureTime;
+                document.querySelector(".arrivalTime").textContent = formattedArrivalTime;
+                document.querySelector(".travelAgencyName").textContent = travelAgencyName;
+                document.querySelector(".airlineName").textContent = airlineName;
 
-                fetchImage(window.id);
+                const priceText = document.getElementById("price"); // id가 "priceSpan"인 요소 선택
+                priceText.style.textDecoration = "line-through"; // 취소선 스타일 적용
+
+
+                fetchImage(airlineId,travelAgencyId,thumbnailImageId);
             })
             .catch(error => {
                 console.error("Error fetching item data:", error);
             });
 
-        function fetchImage(itemId) {
-            fetch('/tour-ranger/items/' + itemId + '/images')
-                .then(response => response.json())
-                .then(dataList => {
-                    if (dataList.length > 0) {
-                        const imageData = dataList[0];
-                        const imageId = imageData.id;
-
-                        document.getElementById("dealImage").src = "/tour-ranger/images/" + imageId;
-
-                    } else {
-                        console.error("No image data found.");
-                    }
-                })
-                .catch(error => {
-                    console.error("Error fetching image data:", error);
-                });
+        function fetchImage(airlineId, travelAgencyId,thumbnailImageId) {
+            document.getElementById("airlineImage").src = "/tour-ranger/airlines/" + airlineId;
+            document.getElementById("travelAgencyImage").src = "/tour-ranger/travelAgencies/" + travelAgencyId;
+            document.getElementById("thumbnailImage").src = "/tour-ranger/thumbnailImages/" + thumbnailImageId;
         }
 
         //구매하기 버튼 클릭
         document.getElementById("purchaseButton").addEventListener("click", function () {
             const email = document.getElementById("email").value;
-            const itemId = window.id;
+            const itemId = document.getElementById("this-item").value;
             if (!email) {
                 alert("이메일을 입력해 주세요.");
                 return;
@@ -113,6 +154,7 @@
                         alert(errorMessage);
                     } else {
                         alert("구매에 성공 했습니다.");
+                        window.location.href = "/tour-ranger/front/items/"+itemId;
                     }
                 })
                 .catch(error => {
