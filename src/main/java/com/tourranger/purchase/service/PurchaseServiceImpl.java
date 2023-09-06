@@ -1,5 +1,9 @@
 package com.tourranger.purchase.service;
 
+import java.util.concurrent.TimeUnit;
+
+import org.redisson.api.RLock;
+import org.redisson.api.RedissonClient;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,16 +25,35 @@ public class PurchaseServiceImpl implements PurchaseService {
 	private final UserServiceImpl userService;
 	private final ItemServiceImpl itemService;
 	private final PurchaseRepository purchaseRepository;
+	private final RedissonClient redissonClient;
 
 	@Override
 	@Transactional
-	public void purchaseItem(Long itemId, PurchaseRequestDto requestDto) {
+	public boolean purchaseItem(Long itemId, PurchaseRequestDto requestDto) {
 		User user = userService.findUser(requestDto.getEmail());
 		Item item = itemService.findItem(itemId);
-		checkStock(item);
-		Purchase purchase = Purchase.builder().item(item).user(user).build();
-		purchaseRepository.save(purchase);
-		item.sellOne();
+
+		String lockKey = "item_lock_" + itemId;
+		RLock rLock = redissonClient.getLock(lockKey);
+
+		try {
+			boolean available = rLock.tryLock(5, 3, TimeUnit.SECONDS);
+			if (!available) {
+				return false;
+			}
+			checkStock(item);
+			Purchase purchase = Purchase.builder().item(item).user(user).build();
+			purchaseRepository.save(purchase);
+			item.sellOne();
+
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+
+		} finally {
+			rLock.unlock(); // (4)
+		}
+
+		return false;
 	}
 
 	private void checkStock(Item item) {

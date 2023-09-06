@@ -8,5 +8,5 @@ public interface PurchaseService {
 	 * @param itemId 주문할 상품 ID
 	 * @param requestDto 상품 주문을 위한 요청 정보
 	 */
-	void purchaseItem(Long itemId, PurchaseRequestDto requestDto);
+	boolean purchaseItem(Long itemId, PurchaseRequestDto requestDto);
 }
