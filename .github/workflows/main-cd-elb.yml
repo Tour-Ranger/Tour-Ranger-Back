@@ -6,7 +6,7 @@ name: main-CD-elb
 on:
   #main branch에 대한 push 이벤트를 트리거로 지정
   push:
-    branches: [ main ]
+    branches: [ feature/45/aws-with-elb ]
 
 # 리전, 버킷 이름, CodeDeploy 앱 이름, CodeDeploy 배포 그룹 이름
 env:
