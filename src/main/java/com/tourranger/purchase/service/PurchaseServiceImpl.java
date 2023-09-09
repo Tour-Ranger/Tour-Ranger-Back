@@ -26,7 +26,7 @@ public class PurchaseServiceImpl implements PurchaseService {
 	@Transactional
 	public void purchaseItem(Long itemId, PurchaseRequestDto requestDto) {
 		User user = userService.findUser(requestDto.getEmail());
-		Item item = itemService.findItem(itemId);
+		Item item= itemService.findItemPessimisticLock(itemId);
 		checkStock(item);
 		Purchase purchase = Purchase.builder().item(item).user(user).build();
 		purchaseRepository.save(purchase);
