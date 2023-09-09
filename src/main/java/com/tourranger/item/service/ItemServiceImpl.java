@@ -40,7 +40,6 @@ public class ItemServiceImpl implements ItemService {
         else{
             keyword = search;
         }
-        System.out.println(keyword);
 
         return switch (condition) {
             case "latest" -> // 최신순
