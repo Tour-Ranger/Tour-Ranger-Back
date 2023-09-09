@@ -157,7 +157,6 @@
         let search = document.getElementById("search").value;
         let condition = document.getElementById("condition").value;
         searched = true;
-        console.log("검색버튼 클릭")
         fetch(`/tour-ranger/items?search=${search}&condition=${condition}&page=${page}&size=${size}`)
             .then(function (response) {
                 return response.json();
