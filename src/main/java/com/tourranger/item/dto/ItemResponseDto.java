@@ -16,10 +16,12 @@ public class ItemResponseDto {
 	private Long id;
 	private String name;
 	private Long price;
+	private String country;
 	private Long discountPrice;
 	private Long currentQuantity;
 	private Long maxQuantity;
-	private String period;
+	private Long night;
+	private Long day;
 	private LocalDateTime departureTime;
 	private LocalDateTime arrivalTime;
 	private Long travelAgencyId;
@@ -32,10 +34,12 @@ public class ItemResponseDto {
 		this.id = item.getId();
 		this.name = item.getName();
 		this.price = item.getPrice();
+		this.country = item.getCountry();
 		this.discountPrice = item.getDiscountPrice();
 		this.currentQuantity = item.getCurrentQuantity();
 		this.maxQuantity = item.getMaxQuantity();
-		this.period = item.getPeriod();
+		this.night = item.getNight();
+		this.day = item.getDay();
 		this.departureTime = item.getDepartureTime();
 		this.arrivalTime = item.getArrivalTime();
 		this.travelAgencyId = item.getTravelAgency().getId();
