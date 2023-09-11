@@ -26,7 +26,7 @@ public class PurchaseServiceImpl implements PurchaseService {
 	private final LockItemRepository lockItemRepository;
 
 	@Override
-	@Transactional(propagation = Propagation.REQUIRES_NEW) // 매번 새로운 트랜잭션을 시작
+	@Transactional
 	public void purchaseItem(Long itemId, PurchaseRequestDto requestDto) {
 		try {
 			//NameLock 획득
