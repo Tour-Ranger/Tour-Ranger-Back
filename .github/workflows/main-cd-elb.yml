@@ -11,7 +11,7 @@ on:
 # 리전, 버킷 이름, CodeDeploy 앱 이름, CodeDeploy 배포 그룹 이름
 env:
   AWS_REGION: ap-northeast-2
-  S3_BUCKET_NAME: tour-ranger-elb-s3-bucket
+  S3_BUCKET_NAME: tour-ranger-elb-s3-bucket-kst
   CODE_DEPLOY_APPLICATION_NAME: tour-ranger-deploy-kst
   CODE_DEPLOY_DEPLOYMENT_GROUP_NAME: tour-ranger-app-group-kst
 
