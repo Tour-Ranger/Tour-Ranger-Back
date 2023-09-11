@@ -26,6 +26,9 @@ public class Item {
 	private String name;
 
 	@Column(nullable = false)
+	private String country;
+
+	@Column(nullable = false)
 	private Long price;
 
 	@Column(nullable = false)
@@ -35,10 +38,13 @@ public class Item {
 	private Long currentQuantity;
 
 	@Builder.Default
-	private Long maxQuantity = 30L;
+	private Long maxQuantity = 100L;
 
 	@Column(nullable = false)
-	private String period;
+	private Long night;
+
+	@Column(nullable = false)
+	private Long day;
 
 	@Column(nullable = false)
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Seoul")
