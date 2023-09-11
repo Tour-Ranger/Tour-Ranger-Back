@@ -6,7 +6,7 @@ name: main-CD
 on:
   #main branch에 대한 push 이벤트를 트리거로 지정
   push:
-    branches: [ feature/52/searchfilter ]
+    branches: [feature/52/searchfilter]
 
 # 리전, 버킷 이름, CodeDeploy 앱 이름, CodeDeploy 배포 그룹 이름
 env:
