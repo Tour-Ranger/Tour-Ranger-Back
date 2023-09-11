@@ -10,7 +10,7 @@ on:
 
 # 리전, 버킷 이름, CodeDeploy 앱 이름, CodeDeploy 배포 그룹 이름
 env:
-  AWS_REGION: us-east-1
+  AWS_REGION: ap-northeast-2c
   S3_BUCKET_NAME: tour-ranger-elb-s3-bucket
   CODE_DEPLOY_APPLICATION_NAME: tour-ranger
   CODE_DEPLOY_DEPLOYMENT_GROUP_NAME: tour-ranger-app-group
@@ -58,7 +58,7 @@ jobs:
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID_TEMPRMN }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY_TEMPRMN }}
-          aws-region: ${{ secrets.AWS_REGION_TEMPRMN }}
+          aws-region: ${{ secrets.AWS_REGION }}
 
       # 빌드 결과물을 S3 버킷에 업로드
       - name: Upload to AWS S3
