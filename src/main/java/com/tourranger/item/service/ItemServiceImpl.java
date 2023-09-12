@@ -5,7 +5,6 @@ import java.util.List;
 
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-
 import com.tourranger.common.error.CustomErrorCode;
 import com.tourranger.common.exception.CustomException;
 import com.tourranger.item.dto.ItemResponseDto;
@@ -88,15 +87,21 @@ public class ItemServiceImpl implements ItemService {
 		};
 	}
 
-	public Item findItem(Long id) {
-		return itemRepository.findById(id).orElseThrow(() ->
-			new CustomException(CustomErrorCode.ITEM_NOT_FOUND, null)
-		);
-	}
+    public Item findItem(Long id) {
+        return itemRepository.findById(id).orElseThrow(() ->
+                new CustomException(CustomErrorCode.ITEM_NOT_FOUND, null)
+        );
+    }
 
-	public String splitSearchKeywordForNgram(String search) {
-		// 공백을 기준으로 문자열 분리
-		String[] tokens = search.split(" ");
+    public Item findItemPessimisticLock(Long id){
+        return  itemRepository.findByIdWithPessimisticLock(id).orElseThrow(()->
+            new CustomException(CustomErrorCode.ITEM_NOT_FOUND, null)
+        );
+    }
+
+    public String splitSearchKeywordForNgram(String search) {
+        // 공백을 기준으로 문자열 분리
+        String[] tokens = search.split(" ");
 
 		// n-gram 형식으로 변환
 		StringBuilder ngramSearch = new StringBuilder();
