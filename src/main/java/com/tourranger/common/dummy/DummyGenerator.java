@@ -47,9 +47,9 @@ public class DummyGenerator implements CommandLineRunner {
 	// 실행
 	@Override
 	public void run(String... args) throws Exception {
-//		dummyUserGenerator();
-//		dummyImageGenerator();
-//		dummyItemGenerator();
+  //		dummyUserGenerator();
+  //		dummyImageGenerator();
+  //		dummyItemGenerator();
 	}
 
 	// User 더미데이터 만들기
@@ -80,18 +80,22 @@ public class DummyGenerator implements CommandLineRunner {
 	// Item 만들기
 	public void dummyItemGenerator() {
 		String name = "★패밀리팩 성인2+소아2 필수★괌 에어텔 / 3박4일 / 괌플라자 스탠다드 1박  + 두짓비치 슈페리어 2박 / 투어레인저";
+		String country = "괌";
 		Long price = 529_000L; // 3백만원
 		Long discountPrice = 100L; // 백원
 		Long currentQuantity = 30L; // 30개
-		String period = "3박 4일";
+		Long night = 3L;
+		Long day = 4L;
 		LocalDateTime departureTime = LocalDateTime.of(2023,9,17,8,30,0);
 		LocalDateTime arrivalTime = LocalDateTime.of(2023,9,20,18,45,0);
 		TravelAgency travelAgency = travelAgencyRepository.findTopByName("투어레인저 여행사").orElse(null);
 		Airline airline = airlineRepository.findTopByName("투어레인저 항공사").orElse(null);
 		ThumbnailImage thumbnailImage = thumbnailImageRepository.findTopByUrl("thumbnail.jpg").orElse(null);
 		Item item = Item.builder()
-				.name(name).price(price).discountPrice(discountPrice)
-				.currentQuantity(currentQuantity).period(period)
+				.name(name).price(price).country(country)
+				.discountPrice(discountPrice)
+				.currentQuantity(currentQuantity)
+				.night(night).day(day)
 				.departureTime(departureTime)
 				.arrivalTime(arrivalTime)
 				.travelAgency(travelAgency)
