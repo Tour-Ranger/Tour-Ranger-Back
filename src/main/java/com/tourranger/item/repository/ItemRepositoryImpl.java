@@ -19,6 +19,7 @@ import lombok.RequiredArgsConstructor;
 public class ItemRepositoryImpl implements ItemRepositoryCustom {
 	private final JPAQueryFactory queryFactory;
 	QItem item = QItem.item;
+  
 	@Override
 	public Page<Item> findAllByOrderById(Pageable pageable){
 		Long startId = pageable.getOffset()+ 1;
@@ -37,5 +38,3 @@ public class ItemRepositoryImpl implements ItemRepositoryCustom {
 	}
 
 }
-
-

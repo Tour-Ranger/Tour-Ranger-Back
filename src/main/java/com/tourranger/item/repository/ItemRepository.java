@@ -33,4 +33,3 @@ public interface ItemRepository extends JpaRepository<Item, Long>, ItemRepositor
 	@Query(value = "SELECT * FROM item i WHERE MATCH(i.name) AGAINST(:search IN BOOLEAN MODE) ORDER BY i.discount_price DESC", nativeQuery = true)
 	Page<Item> searchItemOrderbyDiscountPriceDesc(String search, Pageable pageable);
 }
-
