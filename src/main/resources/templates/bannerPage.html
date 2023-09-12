@@ -326,7 +326,6 @@
                 selectedCountries.push(checkbox.value);
             }
         });
-        console.log(selectedCountries);
         // 여행사 선택 체크박스 가져오기
         let selectedTravelAgencies = [];
         let travelAgencyCheckboxes = document.getElementsByName("s2[]");
@@ -335,7 +334,7 @@
                 selectedTravelAgencies.push(checkbox.value);
             }
         });
-        console.log(selectedTravelAgencies);
+
 
         // 출발 - 도착 날짜 체크
         let selectedDateRange = null;
@@ -387,7 +386,6 @@
             queryString += `&priceValue=${encodeURIComponent(priceValue)}`;
             queryString += `&priceAbove=${encodeURIComponent(priceAbove)}`;
         }
-        console.log(queryString);
         fetch(`/tour-ranger/items?${queryString}`)
             .then(function (response) {
                 return response.json();
