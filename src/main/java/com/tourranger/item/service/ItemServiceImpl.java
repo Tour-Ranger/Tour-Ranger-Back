@@ -59,8 +59,10 @@ public class ItemServiceImpl implements ItemService {
     }
 
     public Item findItemPessimisticLock(Long id){
-        return  itemRepository.findByIdWithPessimisticLock(id);
-    };
+        return  itemRepository.findByIdWithPessimisticLock(id).orElseThrow(()->
+            new CustomException(CustomErrorCode.ITEM_NOT_FOUND, null)
+        );
+    }
 
     public String splitSearchKeywordForNgram(String search) {
         // 공백을 기준으로 문자열 분리

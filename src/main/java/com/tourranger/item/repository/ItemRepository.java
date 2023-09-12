@@ -17,7 +17,7 @@ import jakarta.persistence.LockModeType;
 public interface ItemRepository extends JpaRepository<Item, Long>, ItemRepositoryCustom {
 	@Lock(LockModeType.PESSIMISTIC_WRITE)
 	@Query("select s from Item s where s.id=:id")
-	Item findByIdWithPessimisticLock(Long id);
+	Optional<Item> findByIdWithPessimisticLock(Long id);
 
 	Optional<Item> findTopByOrderByIdDesc();
 
