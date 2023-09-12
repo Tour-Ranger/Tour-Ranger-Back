@@ -5,13 +5,20 @@ import java.util.Optional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Lock;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import com.tourranger.item.entity.Item;
 
+import jakarta.persistence.LockModeType;
+
 @Repository
 public interface ItemRepository extends JpaRepository<Item, Long>, ItemRepositoryCustom {
+	@Lock(LockModeType.PESSIMISTIC_WRITE)
+	@Query("select s from Item s where s.id=:id")
+	Optional<Item> findByIdWithPessimisticLock(Long id);
+
 	Optional<Item> findTopByOrderByIdDesc();
 
 	//이름검색(조건-최신순)
