@@ -45,7 +45,7 @@ public class ItemServiceImpl implements ItemService {
 		String keyword;
 		//검색 시 앞뒤의 공백을 제거
 		String trimmedSearch = search.trim();
-		//2글자 이상인 경우, ngram 토큰 사이즈에 맞게 2글자씩 가공
+		//2글자 초과인 경우, ngram 토큰 사이즈에 맞게 2글자씩 가공
 		if (trimmedSearch.length() > 2) {
 			keyword = splitSearchKeywordForNgram(trimmedSearch);
 		}//1글자인 경우, ngram의 와일드카드 연산자인 *을 단어 뒤에 추가
