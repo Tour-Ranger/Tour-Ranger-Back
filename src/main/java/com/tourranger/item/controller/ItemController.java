@@ -36,10 +36,19 @@ public class ItemController {
 	public ResponseEntity<List<ItemResponseDto>> getItemList(
 		@RequestParam(name = "search", required = false) String search,
 		@RequestParam(name = "condition", required = false) String condition,
-		Pageable pageable) {
+		Pageable pageable,
+		@RequestParam(name = "countries", required = false) String countries,
+		@RequestParam(name = "travelAgencies", required = false) String travelAgencies,
+		@RequestParam(name = "startDate", required = false) String startDate,
+		@RequestParam(name = "endDate", required = false) String endDate,
+		@RequestParam(name = "priceValue", required = false) Integer priceValue,
+		@RequestParam(name = "priceAbove", required = false) boolean priceAbove
+	) {
 		//검색어 입력으로 조회하는 경우
 		if (search != null && !search.isEmpty()) {
-			return ResponseEntity.ok().body(itemService.getSearchedItemList(search, condition, pageable));
+			return ResponseEntity.ok()
+				.body(itemService.getSearchedItemList(search, condition, pageable, countries, travelAgencies, startDate,
+					endDate, priceValue, priceAbove));
 		}
 		//일반 조회하는 경우-Id순
 		else
