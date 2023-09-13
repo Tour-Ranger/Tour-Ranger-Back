@@ -3,8 +3,10 @@ package com.tourranger.item.service;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+
 import com.tourranger.common.error.CustomErrorCode;
 import com.tourranger.common.exception.CustomException;
 import com.tourranger.item.dto.ItemResponseDto;
@@ -32,6 +34,7 @@ public class ItemServiceImpl implements ItemService {
 	}
 
 	@Override
+	@Cacheable(key = "#search+'-'+#pageable.pageNumber", value = "SearchedItemList")
 	public List<ItemResponseDto> getSearchedItemList(
 		String search,
 		String condition,
