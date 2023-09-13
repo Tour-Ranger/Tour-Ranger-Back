@@ -105,23 +105,30 @@ public class ItemServiceImpl implements ItemService {
         );
     }
 
-    public String splitSearchKeywordForNgram(String search) {
-        // 공백을 기준으로 문자열 분리
-        String[] tokens = search.split(" ");
+	public String splitSearchKeywordForNgram(String search) {
+		// 공백을 기준으로 문자열 분리
+		String[] tokens = search.split(" ");
 
 		// n-gram 형식으로 변환
 		StringBuilder ngramSearch = new StringBuilder();
-		for (int i = 0; i < tokens.length; i++) {
-			for (int j = 0; j < tokens[i].length(); j++) {
-				if (j + 2 <= tokens[i].length()) {
-					if (ngramSearch.length() > 0) {
-						ngramSearch.append(" ");
-					}
-					ngramSearch.append("+").append(tokens[i].substring(j, j + 2));
+		for (String keyword : tokens) {
+			if (keyword.length() <= 2) {
+				if (keyword.length() == 1) {
+					// 길이가 1인 경우 '*' 와 함께 추가합니다.
+					ngramSearch.append("+").append(keyword).append("* ");
+				} else {
+					// 길이가 2인 경우, 해당 키워드를 그대로 추가합니다.
+					ngramSearch.append("+").append(keyword).append(" ");
+				}
+			} else {
+				// 토큰 길이가 2보다 긴 경우, 길이 2로 나누어 추가합니다.
+				for (int i = 0; i < keyword.length() - 1; i++) {
+					String token = keyword.substring(i, i + 2);
+					ngramSearch.append("+").append(token).append(" ");
 				}
 			}
 		}
-
-		return ngramSearch.toString();
+		// 마지막 공백을 제거하고 결과를 반환합니다.
+		return ngramSearch.toString().trim();
 	}
 }
