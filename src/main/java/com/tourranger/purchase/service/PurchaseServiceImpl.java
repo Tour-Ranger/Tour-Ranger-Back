@@ -1,5 +1,6 @@
 package com.tourranger.purchase.service;
 
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -24,9 +25,10 @@ public class PurchaseServiceImpl implements PurchaseService {
 
 	@Override
 	@Transactional
+	@Async("taskExecutor")
 	public void purchaseItem(Long itemId, PurchaseRequestDto requestDto) {
 		User user = userService.findUser(requestDto.getEmail());
-		Item item= itemService.findItemPessimisticLock(itemId);
+		Item item = itemService.findItemPessimisticLock(itemId);
 		checkStock(item);
 		Purchase purchase = Purchase.builder().item(item).user(user).build();
 		purchaseRepository.save(purchase);
