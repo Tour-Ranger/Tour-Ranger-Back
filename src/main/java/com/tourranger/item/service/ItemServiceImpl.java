@@ -90,7 +90,7 @@ public class ItemServiceImpl implements ItemService {
 			case "noFilterTest" ->//필터 미적용 테스트
 				itemRepository.searchItemNoFilterTest(keyword, pageable).stream().map(ItemResponseDto::new).toList();
 			case "likeTest" -> //LIKE문 조회 테스트
-				itemRepository.searchItemLikeTest(keyword, pageable, countryList, convertTravelAgencyList, startDate,
+				itemRepository.searchItemLikeTest(trimmedSearch, pageable, countryList, convertTravelAgencyList, startDate,
 					endDate, priceValue, priceAbove).stream().map(ItemResponseDto::new).toList();
 			default -> null;
 		};
