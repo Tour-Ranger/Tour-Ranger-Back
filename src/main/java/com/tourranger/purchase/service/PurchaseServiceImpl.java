@@ -31,15 +31,15 @@ public class PurchaseServiceImpl implements PurchaseService {
 	@Transactional
 	@Async("taskExecutor")
 	public void purchaseItem(Long itemId, PurchaseRequestDto requestDto) {
-		String threadName = Thread.currentThread().getName(); // 현재 스레드의 이름 가져오기
-		logger.info("start purchaseItem(), " + threadName);
+		// String threadName = Thread.currentThread().getName(); // 현재 스레드의 이름 가져오기
+		// logger.info("start purchaseItem(), " + threadName);
 		User user = userService.findUser(requestDto.getEmail());
 		Item item = itemService.findItemPessimisticLock(itemId);
 		checkStock(item);
 		Purchase purchase = Purchase.builder().item(item).user(user).build();
 		purchaseRepository.save(purchase);
 		item.sellOne();
-		logger.info("end purchaseItem(), " + threadName);
+		// logger.info("end purchaseItem(), " + threadName);
 	}
 
 	private void checkStock(Item item) {
