@@ -34,7 +34,7 @@ public class ItemServiceImpl implements ItemService {
 	}
 
 	@Override
-	@Cacheable(key = "#search+'-'+#pageable.pageNumber", value = "SearchedItemList")
+	@Cacheable(key = "#search+'-'+#condition+'-'+#pageable.pageNumber+'-'+#countries+'-'+#travelAgencies+'-'+#startDate+'-'+#endDate+'-'+#priceValue+'-'+#priceAbove", value = "SearchedItemList")
 	public List<ItemResponseDto> getSearchedItemList(
 		String search,
 		String condition,
