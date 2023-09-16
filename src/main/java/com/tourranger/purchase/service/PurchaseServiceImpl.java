@@ -34,6 +34,9 @@ public class PurchaseServiceImpl implements PurchaseService {
 		// String threadName = Thread.currentThread().getName(); // 현재 스레드의 이름 가져오기
 		// logger.info("start purchaseItem(), " + threadName);
 		User user = userService.findUser(requestDto.getEmail());
+		if (user == null) {
+			throw new CustomException(CustomErrorCode.USER_NOT_FOUND, null);
+		}
 		Item item = itemService.findItemPessimisticLock(itemId);
 		checkStock(item);
 		Purchase purchase = Purchase.builder().item(item).user(user).build();
