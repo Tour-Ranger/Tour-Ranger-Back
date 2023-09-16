@@ -28,15 +28,15 @@
         padding: 10px; /* 셀 안에 여백 추가 */
     }
 
-    .login-btn {
+    .auth-btn {
         margin: 20px auto 0px auto;
         width: 50px;
     }
 </style>
 <body>
-<div class="login-btn">
-    <button th:href="@{/tour-ranger/front/signup}">signup</button>
-    <button th:href="@{/tour-ranger/login}">login</button>
+<div class="auth-btn">
+    <button onclick="showSignup()">signup</button>
+    <button onclick="showLogin()">login</button>
 </div>
 <div class="container d-flex justify-content-center align-items-center ">
     <a th:href="@{/tour-ranger/front/items/1}">
@@ -206,6 +206,13 @@
     </nav>
 </div>
 <script>
+
+    function showSignup(){
+        window.location.href = "/tour-ranger/front/signup";
+    }
+    function showLogin(){
+        window.location.href = "/tour-ranger/login";
+    }
 
     let itemsPerPage = 5; // 페이지당 아이템 수
     let currentPage = 0; // 현재 페이지
