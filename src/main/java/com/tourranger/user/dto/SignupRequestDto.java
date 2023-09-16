@@ -14,7 +14,6 @@ public class SignupRequestDto {
 
 	@NotBlank
 	@Size(min = 8, max = 15, message = "비밀번호는 최소 8자 이상, 15자 이하여야 합니다.")
-	@Pattern(regexp = "^[a-zA-Z0-9_!#$%&'*+/=?`{|}~^.-]*$", message = "비밀번호는 알파벳 대소문자(a~z, A~Z), 숫자(0~9), 특수문자(_!#$%&'*+/=?`{|}~^.-)로 구성되어야 합니다.")
 	private String password;
 }
 
