@@ -3,6 +3,7 @@ package com.tourranger.thumbnailImage.controller;
 import java.net.MalformedURLException;
 
 import org.springframework.core.io.Resource;
+import org.springframework.core.io.UrlResource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,7 +28,8 @@ public class ThumbnailImageController {
 	@Operation(summary = "썸네일 이미지파일 조회", description = "썸네일 이미지 url의 Resource를 조회합니다.")
 	public ResponseEntity<Resource> getThumbnailImage(@PathVariable Long thumbnailImageId) throws
 		MalformedURLException {
-		return ResponseEntity.status(HttpStatus.OK).body(thumbnailImageService.getThumbnailImage(thumbnailImageId));
+		return ResponseEntity.status(HttpStatus.OK)
+			.body(new UrlResource(thumbnailImageService.getThumbnailImage(thumbnailImageId)));
 	}
 
 }
