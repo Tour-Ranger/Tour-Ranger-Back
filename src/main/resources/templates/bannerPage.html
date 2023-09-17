@@ -27,8 +27,17 @@
         border: 1px solid #ccc; /* 셀 테두리 스타일 및 색상 설정 */
         padding: 10px; /* 셀 안에 여백 추가 */
     }
+
+    .auth-btn {
+        margin: 20px auto 0px auto;
+        width: 50px;
+    }
 </style>
 <body>
+<div class="auth-btn">
+    <button onclick="showSignup()">signup</button>
+    <button onclick="showLogin()">login</button>
+</div>
 <div class="container d-flex justify-content-center align-items-center ">
     <a th:href="@{/tour-ranger/front/items/1}">
         <img alt="banner" th:src="@{/image/banner.png}" class="img-fluid"
@@ -197,6 +206,13 @@
     </nav>
 </div>
 <script>
+
+    function showSignup(){
+        window.location.href = "/tour-ranger/front/signup";
+    }
+    function showLogin(){
+        window.location.href = "/tour-ranger/login";
+    }
 
     let itemsPerPage = 5; // 페이지당 아이템 수
     let currentPage = 0; // 현재 페이지
