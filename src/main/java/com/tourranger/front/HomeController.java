@@ -20,4 +20,9 @@ public class HomeController {
 	public String tourItem() {
 		return "tourItemPage";
 	}
+
+	@GetMapping("/front/signup")
+	public String signupPage() {
+		return "signupPage";
+	}
 }
