@@ -9,7 +9,6 @@ import org.springframework.scheduling.annotation.EnableAsync;
 @SpringBootApplication
 @EnableAsync
 public class TourRangerApplication {
-
 	public static void main(String[] args) {
 		SpringApplication.run(TourRangerApplication.class, args);
 	}
