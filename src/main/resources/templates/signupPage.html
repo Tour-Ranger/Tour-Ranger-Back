@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="container mt-5">
+    <h2 class="card-title">회원가입</h2>
+    <div class="input-group mb-3">
+        <span class="input-group-text">email</span>
+        <input type="text" class="form-control" id="email" placeholder="email 입력">
+    </div>
+    <div class="input-group mb-3">
+        <span class="input-group-text">password</span>
+        <input type="text" class="form-control" id="password" placeholder="password 입력">
+    </div>
+    <button id="signup-btn">signup</button>
+</div>
+<script>
+    document.getElementById("signup-btn").addEventListener("click", function () {
+        const email = document.getElementById("email").value;
+        const password = document.getElementById("password").value;
+        const requestData = {
+            email: email,
+            password: password
+        }
+        fetch(`/tour-ranger/signup`, {
+          method: "POST",
+          headers: {
+              "Content-Type": "application/json"
+          },
+          body: JSON.stringify(requestData)
+        })
+            .then(response => response.json())
+            .then(data => {
+                if(data.statusCode === 400){
+                    let errorMessage = data.statusMessage;
+                    alert(errorMessage);
+                } else {
+                    alert("회원가입 성공");
+                    window.location.href = "/tour-ranger/";
+                }
+            })
+            .catch(error => {
+                console.error("Error signup: ", error);
+            });
+    });
+</script>
+</body>
+</html>

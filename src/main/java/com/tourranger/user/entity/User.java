@@ -7,6 +7,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,13 +16,20 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class User {
+public class User implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
 	@Column(nullable = false)
 	private String email;
+
+	@Column(nullable = false)
+	private String password;
+
+	@Column(nullable = false)
+	@Enumerated(value = EnumType.STRING)
+	private UserRoleEnum role;
 
 	@Builder.Default
 	@OneToMany(mappedBy = "user", orphanRemoval = true)
