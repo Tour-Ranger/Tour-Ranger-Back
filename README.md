@@ -245,24 +245,69 @@ public class AsyncConfig {
 
 <br>
 
-> **문제:**
+> 문제: 서비스의 특성 상 어뷰징의 위험이 있어 멀티 로그인 방지를 위하여 ***세션으로 인증, 인가 방식을 구현*** 하였는데, 웹 서비스에 걸리는 부하를 분산해주기 위해 서버를 늘리게 되었고, 이 과정에서 ***세션의 불일치 문제가 발생***하였다.
 
-> **해결:**
-  
+* 세션 불일치 해결 방안
+  - **`Sticky Session`** : 세션이 유지되는 동안 동일한 서버에만 요청을 날리는 방식
+  - **`**Session Clustering`** : 모든 세션 저장소에 세션 객체를 복제하여 세션 불일치 문제를 해결하는 방식
+    ⇒ 트래픽이 더 증가할 가능성이 있기 때문에 짧은 시간 동안 트래픽을 견뎌내야 하는 우리의 서비스와는 맞지 않는다.
+  - **`세션 스토리지 분리 방식`** : 세션 스토리지를 하나로 분리해 놓으면 트래픽을 증가 시키지 않고, 세션의 불일치 문제도 해결할 수 있다.
+
+* 세션 스토리지에 알맞는 DB
+  - **`In-Memory DB`** : 세션은 존재하는지 여러 번 확인해야 하기 때문에 DB I/O를 많이 발생 시키고, timeout이 존재하는 데이터이기 때문에 In-Memory DB를 선택한다.
+  - **`Redis`** : Redis와 Memcached 중 failover 기능을 더 구현하기 쉽고, READ 연산이 더 빠른 Redis를 사용한다.
+
+<br>
+
+> 해결: 세션 스토리지 분리 방식을 선택하고, 세션은 Redis로 관리해준다.
+
+* 자세한 코드 내용(레디스로 세션 관리 전과 후에 대해 기록)
+  - [Pull Request: [feature] 회원가입, 로그인 - 멀티 로그인 방지, 레디스 - 세션 관리](https://github.com/Tour-Ranger/Tour-Ranger-Back/pull/69)
+
+* application.properties 설정 및 의존성 코드 추가
+
+```java
+spring.session.redis.namespace=spring:session    // application.properties
+implementation 'org.springframework.session:spring-session-data-redis'    // build.gradle 의존성 추가
+```
+
+* 인가처리된 세션이 레디스에 잘 저장되어 있음을 볼 수 있다.
+
+![image](https://github.com/Tour-Ranger/Tour-Ranger-Back/assets/130378232/ebbde0db-2ba4-49b2-ac29-e8d02906bba6)
+
+<br>
+
+---
+
 </details>
-
 
 <details>
 <summary>5. AWS 배포 서버 중단 문제</summary>
 
 <br>
 
-> **문제:**
+> **문제: 배포 서버가 중단되는 문제**
 
-> **해결:**
+* AWS EC2 서버에 프로젝트를 실행시키고 일정 시간이 지나면 서버가 중단되는 문제
+
+**발생 원인**
+
+* AWS 프리티어 t2.micro 램은 1GB 정도 밖에 되지 않아, 프로젝트를 하나만 실행시켜도 메모리가 부족해 서버가 중단되었다.
 
 <br>
-  
+
+> **해결: 리눅스 SWAP 메모리 설정을 통해 메모리 확보**
+
+* 스왑 공간을 너무 과도하게 늘리면 성능저하가 심해질 수 있으므로, 물리 메모리 1GB의 2배인 2GB 크기의 스왑메모리 확보
+
+```bash
+sudo dd if=/dev/zero of=/swapfile bs=128M count=16
+```
+
+<br>
+
+---
+
 </details>
 
 <br>
