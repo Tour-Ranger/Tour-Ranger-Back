@@ -24,11 +24,9 @@
 
 <br>
 
-## 🤝 Project Members
+## 🤝 파워레인조 Project Members
 
-<p align="center">
-  <img src="https://github.com/Tour-Ranger/Tour-Ranger-Back/assets/130378232/7a61f6bf-f7a6-4700-901a-89578bfa352e" width=500px>
-</p>
+<img src="https://github.com/Tour-Ranger/Tour-Ranger-Back/assets/130378232/7a61f6bf-f7a6-4700-901a-89578bfa352e" width=500px>
 
 |이름|깃허브|
 |---|---|
@@ -39,21 +37,21 @@
 
 <br>
 
-## Architecture
+## 📐 Architecture
 
 <p align="center">
-  <img src="https://github.com/Tour-Ranger/Tour-Ranger-Back/assets/130378232/f26aa660-d395-4cd5-b2f2-85ff8ee5e8d6">
+  <img src="https://github.com/Tour-Ranger/Tour-Ranger-Back/assets/130378232/f26aa660-d395-4cd5-b2f2-85ff8ee5e8d6" width=700px>
 </p>
 
-## ERD
+## 💬 ERD
 
 <p align="center">
-  <img src="https://github.com/Tour-Ranger/Tour-Ranger-Back/assets/130378232/b17109be-d960-4d6a-8835-309f328f9798" width=800px>
+  <img src="https://github.com/Tour-Ranger/Tour-Ranger-Back/assets/130378232/b17109be-d960-4d6a-8835-309f328f9798" width=700px>
 </p>
 
 <br>
 
-## 기술 스택
+## 🛠️ 기술 스택
 
 **Back**
 
@@ -83,10 +81,35 @@
 
 <br>
 
-## 트러블 슈팅
+## 🏆 서비스 최종 성능 정리
+
+💻 **기능 API** 
+
+- 세션 인증/인가 - 멀티로그인 방지, 레디스로 세션 관리
+- 여행상품 조회
+- 여행상품 검색(필터 검색)
+- 상품 구매
+
+**📟 대용량 트래픽 처리**
+
+- 가상사용자 **1만명,** 초당 **약 1.9만 건 요청** 처리
+
+📚 **상품 조회속도**
+
+- 여행상품 데이터 1,000만 건 누적 후
+- 페이지네이션 상품 조회 속도 : **0.1초 이내**
+
+**🔎 검색 속도**
+
+- 최초 검색 속도 : **0.1초 ~10초(**데이터 차지량에 따른 차이 발생)
+- 캐싱 이후 검색 속도 : **0.001초 이내**
+
+<br><br>
+
+## 💥 트러블 슈팅
 
 <details>
-<summary>1. SQL : 검색 시 사용자가 선택한 조건의 조합에 따른 쿼리 적용 방법 고민</summary>
+<summary>📚 1. SQL : 검색 시 사용자가 선택한 조건의 조합에 따른 쿼리 적용 방법 고민</summary>
 
 <br>
 
@@ -137,7 +160,7 @@ ORDER BY i.id DESC
 </details>
 
 <details>
-  <summary>2. 동시성 제어 : 한정 상품 동시 주문에 대한 데이터 정확성 확보</summary>
+  <summary>🔒 2. 동시성 제어 : 한정 상품 동시 주문에 대한 데이터 정확성 확보</summary>
 
 <br>
 
@@ -172,7 +195,7 @@ ORDER BY i.id DESC
 </details>
 
 <details>
-<summary>3. 멀티스레드 사용으로 CPU 사용률(%) 개선</summary>
+<summary>🤖 3. 멀티스레드 사용으로 CPU 사용률(%) 개선</summary>
 
 <br>
 
@@ -204,9 +227,9 @@ public void purchaseItem(Long itemId, PurchaseRequestDto requestDto) {
 ```
 
 2. 멀티스레드 운용을 위한 EC2 인스턴스 스케일 업
-  a. 기존에 사용하던 인스턴스 타입인 **t2.medium**은, 2 vCPU로, CPU 코어가 2개 밖에 없었다.
-     CPU 코어 수가 적어서 멀티스레드를 사용하더라도 큰 효과가 없을 것이라 판단했고, CPU 코어가 4개이면서 가장 저렴한 **t3a.xlarge**를 선택하였다.
-  b. 코어 : 스레드 = 1:1 비율로 맞추어, **기본 스레드는 4만큼** 설정해주었다.
+
+* 기존에 사용하던 인스턴스 타입인 **t2.medium**은, 2 vCPU로, CPU 코어가 2개 밖에 없었다. CPU 코어 수가 적어서 멀티스레드를 사용하더라도 큰 효과가 없을 것이라 판단했고, CPU 코어가 4개이면서 가장 저렴한 **t3a.xlarge**를 선택하였다.
+* 코어 : 스레드 = 1:1 비율로 맞추어, **기본 스레드는 4만큼** 설정해주었다.
         
 ```java
 @Configuration
@@ -241,7 +264,7 @@ public class AsyncConfig {
 
 
 <details>
-<summary>4. 다중 서버에서 세션 관리</summary>
+<summary>🔑 4. 다중 서버에서 세션 관리</summary>
 
 <br>
 
@@ -282,7 +305,7 @@ implementation 'org.springframework.session:spring-session-data-redis'    // bui
 </details>
 
 <details>
-<summary>5. AWS 배포 서버 중단 문제</summary>
+<summary>🦈 5. AWS 배포 서버 중단 문제</summary>
 
 <br>
 
@@ -312,16 +335,25 @@ sudo dd if=/dev/zero of=/swapfile bs=128M count=16
 
 <br>
 
+## 🎯 성능 개선
 
-[AWS 배포 서버 중단](https://www.notion.so/power-ranzor/MVP-d338ce51977c42b7b0daa2340cae2167?pvs=4#c26d34d0b04240c392b8c036760da6b0)
-
-## 성능 개선
-
-성능 개선
+1. [💿 DB 최적화 - 여행 상품 데이터 조회 속도 개선](https://www.notion.so/power-ranzor/MVP-d338ce51977c42b7b0daa2340cae2167?pvs=4#f6feb182c86b490692fa6b3095999112)
+2. [📀 DB 최적화 - 여행 상품 검색 속도 개선](https://www.notion.so/power-ranzor/MVP-d338ce51977c42b7b0daa2340cae2167?pvs=4#93501bec5c214132b51168bb88930678)
+3. [🚀 레디스 캐싱](https://www.notion.so/power-ranzor/MVP-d338ce51977c42b7b0daa2340cae2167?pvs=4#040b0317740048fb9f37843bb5862a3c)
+4. [🛣️ 부하 분산 - ELB](https://www.notion.so/power-ranzor/MVP-d338ce51977c42b7b0daa2340cae2167?pvs=4#f33d6692d229425dac1a7ad20051f7b7)
 
 <br>
 
-## 데이터 출처
+## 📈 개선점
+
+* 대기열 시스템을 생성하여 대량의 트래픽이 몰리는 것을 방지
+* 트래픽이 몰릴 이벤트 여행 상품의 테이블을 미리 캐싱하고 캐싱된 테이블에서 정보를 받아 빠른 처리 지원
+* 검색 성능 향상을 위해 대용량 데이터 환경에서도 뛰어난 성능을 보이는 Elastic Search 도입
+
+<br>
+
+## 💽 데이터 출처
 
 * [다나와 여행](https://tour.danawa.com/?logger_kw=dnw_gnb_tour)에서 크롤링
 * 크롤링 코드 보러가기 -> [Tour-Ranger-Crawling GitHub Repository](https://github.com/Tour-Ranger/Tour-Ranger-Crawling)
+
