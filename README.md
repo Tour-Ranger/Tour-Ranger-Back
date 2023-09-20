@@ -96,7 +96,7 @@
 ## 💥 트러블 슈팅
 
 <details>
-<summary>📚 1. SQL : 검색 시 사용자가 선택한 조건의 조합에 따른 쿼리 적용 방법 고민</summary>
+<summary>📚 1. SQL : 검색 시 사용자가 선택한 조건의 조합에 따른 쿼리 적용 방법 고민 </summary>
 
 <br>
 
@@ -192,13 +192,13 @@ ORDER BY i.id DESC
 
 **비관적 락**을 사용하면 대기 시간이 길어진다. 그럼에도 테스트에서는 예상수치보다 한참 낮은 두 자릿 수의 TPS를 달성하였다.
 
-원인을 찾기 위해 CloudWatch를 통한 모니터링을 진행하였고, 우선 (부하테스트로 인해서) CPU가 과열된 것은 아닌지부터 모니터링 해보았다. 하지만 CPU 사용률은 전혀 높지 않았고, 오히려 부하테스트를 진행하지 않을 때와 사용률이 거의 유사했다.
+원인을 찾기 위해 CloudWatch를 통한 모니터링을 진행하였고, 우선 (부하테스트로 인해서) CPU가 과열된 것은 아닌지부터 모니터링 해보았다. 하지만 CPU 사용률은 전혀 높지 않았고, 오히려 부하테스트를 진행하지 않을 때와 유사한 사용률을 보였다.
 
 ![image](https://github.com/Tour-Ranger/Tour-Ranger-Back/assets/130378232/878cc246-b461-4aba-a446-a2752f04bc72)
 
 CloudWatch를 통해 CPU 사용률을 모니터링한 화면이다. VUser를 1000만큼 설정하여 테스트하였음에도 **약 11.7%** 라는 저조한 사용률을 보이고 있다.
 
-관점을 바꿔서 **스프링 애플리케이션이** **CPU를 제대로 사용하지 못하고 있다고 판단**하게 되었고, 이 부분에서 개선이 필요하다고 생각했다.
+관점을 바꿔서 **Spring 애플리케이션이 CPU를 제대로 사용하지 못하고 있다고 판단**하게 되었고, 이 부분에서 개선이 필요하다고 생각했다.
 
 <br>
 
@@ -209,7 +209,7 @@ CloudWatch를 통해 CPU 사용률을 모니터링한 화면이다. VUser를 100
 ```java
 @Async("taskExecutor")
 public void purchaseItem(Long itemId, PurchaseRequestDto requestDto) {
-		/* 상품 구매 로직 */
+    /* 상품 구매 로직 */
 }
 ```
 
@@ -224,7 +224,7 @@ public class AsyncConfig {
     @Bean(name = "taskExecutor")
     public Executor taskExecutor() {
         ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
-        **executor.setCorePoolSize(4); // 기본 스레드 수**
+        executor.setCorePoolSize(4); // 기본 스레드 수
         /* ... 그 외 설정 ... */
         return executor;
     }
@@ -232,14 +232,11 @@ public class AsyncConfig {
 ```
         
 3. 결과
-    
 ![image](https://github.com/Tour-Ranger/Tour-Ranger-Back/assets/130378232/2c569805-a969-4e1c-8d62-bed2a2b84872)
 
 멀티스레드 사용 전에 진행했던 테스트와 동일한 설정 (테스트 시간 제외*)으로 부하테스트를 실행하였다.
     
-이번에는 **약 31.8%** 로, 이전보다 높은 사용률을 보였다.
-    
-오히려 EC2 인스턴스를 스케일 업을 통해 처리성능이 더 좋아졌음에도, 스케일 업 전보다 더 높은 CPU 사용률을 보이고 있다.
+이번에는 **약 31.8%** 로, 이전보다 높은 사용률을 보였다. **스케일 업을 통해 EC2 인스턴스의 처리성능이 더 좋아졌음에도, 이전보다 더 높은 CPU 사용률**을 보이고 있다.
     
 ###### 테스트 시간이 부족하여 기존 30분 → 15분으로 단축하여 테스트를 진행했습니다.
 
@@ -331,18 +328,18 @@ sudo dd if=/dev/zero of=/swapfile bs=128M count=16
 
 <br>
 
-## 📈 추가 개선 가능한 점
+## 📈 추가로 개선 가능한 점
 
-* 대기열 시스템을 생성하여 대량의 트래픽이 몰리는 것을 방지
-* 트래픽이 몰릴 이벤트 여행 상품의 데이터를 미리 캐싱하고 캐싱된 데이터의 정보를 받아 빠른 처리 지원
-* 검색 성능 향상을 위해 대용량 데이터 환경에서도 뛰어난 성능을 보이는 Elastic Search 도입
+* **대기열 시스템**을 생성하여 대량의 트래픽이 몰리는 것을 방지
+* 트래픽이 몰릴 **이벤트 여행 상품의 데이터를 미리 캐싱**하고 캐싱된 데이터의 정보를 받아 빠른 처리 지원
+* 검색 성능 향상을 위해 대용량 데이터 환경에서도 뛰어난 성능을 보이는 **Elastic Search 도입**
 
 <br>
 
 ## 💽 데이터 출처
 
 * [다나와 여행](https://tour.danawa.com/?logger_kw=dnw_gnb_tour)에서 크롤링
-* 크롤링 코드 보러가기 -> [Tour-Ranger-Crawling GitHub Repository](https://github.com/Tour-Ranger/Tour-Ranger-Crawling)
+* 크롤링 코드 보러가기 → [Tour-Ranger-Crawling GitHub Repository](https://github.com/Tour-Ranger/Tour-Ranger-Crawling)
 
 <br>
 
@@ -350,7 +347,7 @@ sudo dd if=/dev/zero of=/swapfile bs=128M count=16
 
 * `groovy` 언어로 작성
 * HTTP GET, POST 요청
-* 테스트 코드 보러가기 -> [Tour-Ranger-Test-Runner](https://github.com/Tour-Ranger/Tour-Ranger-Test-Runner/tree/main/src/test/groovy)
+* 테스트 코드 보러가기 → [Tour-Ranger-Test-Runner](https://github.com/Tour-Ranger/Tour-Ranger-Test-Runner/tree/main/src/test/groovy)
 
 <br>
 
