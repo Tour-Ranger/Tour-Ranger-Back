@@ -24,19 +24,6 @@
 
 <br>
 
-## 🤝 파워레인조 Project Members
-
-<img src="https://github.com/Tour-Ranger/Tour-Ranger-Back/assets/130378232/7a61f6bf-f7a6-4700-901a-89578bfa352e" width=500px>
-
-|이름|깃허브|
-|---|---|
-|서예린|https://github.com/yesrin|
-|조우진|https://github.com/VVooJIN3|
-|최정은|https://github.com/jungeun5-choi|
-|표지수|https://github.com/JisooPyo|
-
-<br>
-
 ## 📐 Architecture
 
 <p align="center">
@@ -356,4 +343,19 @@ sudo dd if=/dev/zero of=/swapfile bs=128M count=16
 
 * [다나와 여행](https://tour.danawa.com/?logger_kw=dnw_gnb_tour)에서 크롤링
 * 크롤링 코드 보러가기 -> [Tour-Ranger-Crawling GitHub Repository](https://github.com/Tour-Ranger/Tour-Ranger-Crawling)
+
+<br>
+
+## 🤝 파워레인조 Project Members
+
+<img src="https://github.com/Tour-Ranger/Tour-Ranger-Back/assets/130378232/7a61f6bf-f7a6-4700-901a-89578bfa352e" width=500px>
+
+|이름|깃허브|
+|---|---|
+|서예린|https://github.com/yesrin|
+|조우진|https://github.com/VVooJIN3|
+|최정은|https://github.com/jungeun5-choi|
+|표지수|https://github.com/JisooPyo|
+
+<br>
 
