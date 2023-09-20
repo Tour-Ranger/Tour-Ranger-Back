@@ -32,36 +32,60 @@
 
 ## 💬 ERD
 
+<details>
+<summary> ERD 보기 </summary>
+
 <p align="center">
-  <img src="https://github.com/Tour-Ranger/Tour-Ranger-Back/assets/130378232/b17109be-d960-4d6a-8835-309f328f9798" width=700px>
+<img src="https://github.com/Tour-Ranger/Tour-Ranger-Back/assets/130378232/b17109be-d960-4d6a-8835-309f328f9798" width=700px>
 </p>
 
+</details>
+    
 <br>
 
 ## 🛠️ 기술 스택
 
 **Back**
 
-<img src="https://img.shields.io/badge/Java-007396?style=for-the-badge&logo=OpenJDK&logoColor=white"><img src="https://img.shields.io/badge/Spring-6DB33F?style=for-the-badge&logo=spring&logoColor=white"><img src="https://img.shields.io/badge/Spring Boot-6DB33F?style=for-the-badge&logo=springboot&logoColor=white"><img src="https://img.shields.io/badge/Gradle-02303A?style=for-the-badge&logo=gradle&logoColor=white"><img src="https://img.shields.io/badge/MySQL-4479A1?style=for-the-badge&logo=mysql&logoColor=white"><img src="https://img.shields.io/badge/Spring Security-6DB33F?style=for-the-badge&logo=springsecurity&logoColor=white"><img src="https://img.shields.io/badge/Redis-DC382D?style=for-the-badge&logo=redis&logoColor=white">
+<img src="https://img.shields.io/badge/Java-007396?style=flat-square&logo=OpenJDK&logoColor=white">&nbsp;
+<img src="https://img.shields.io/badge/Spring-6DB33F?style=flat-square&logo=spring&logoColor=white">&nbsp;
+<img src="https://img.shields.io/badge/Spring Boot-6DB33F?style=flat-square&logo=springboot&logoColor=white">&nbsp;
+<img src="https://img.shields.io/badge/Gradle-02303A?style=flat-square&logo=gradle&logoColor=white">&nbsp;
+<img src="https://img.shields.io/badge/MySQL-4479A1?style=flat-square&logo=mysql&logoColor=white">&nbsp;
+<img src="https://img.shields.io/badge/Spring Security-6DB33F?style=flat-square&logo=springsecurity&logoColor=white">&nbsp;
+<img src="https://img.shields.io/badge/Redis-DC382D?style=flat-square&logo=redis&logoColor=white">
 <br>
-<img src="https://img.shields.io/badge/nGrinder-DA742F?style=for-the-badge&logo=&logoColor=white"><img src="https://img.shields.io/badge/GitHub Actions-2088FF?style=for-the-badge&logo=githubactions&logoColor=white"><img src="https://img.shields.io/badge/Amazon AWS-232F3E?style=for-the-badge&logo=amazonaws&logoColor=white"><img src="https://img.shields.io/badge/Amazon S3-569A31?style=for-the-badge&logo=amazons3&logoColor=white"><img src="https://img.shields.io/badge/Amazon EC2-FF9900?style=for-the-badge&logo=amazonec2&logoColor=white"><img src="https://img.shields.io/badge/Amazon CodeDeploy-569A31?style=for-the-badge&logo=&logoColor=white">
-<br>
-<img src="https://img.shields.io/badge/Amazon RDS-527FFF?style=for-the-badge&logo=amazonrds&logoColor=white"><img src="https://img.shields.io/badge/Amazon CloudWatch-FF4F8B?style=for-the-badge&logo=amazoncloudwatch&logoColor=white"><img src="https://img.shields.io/badge/Amazon ELB-005571?style=for-the-badge&logo=&logoColor=white">
+<img src="https://img.shields.io/badge/nGrinder-DA742F?style=flat-square&logo=&logoColor=white">&nbsp;
+<img src="https://img.shields.io/badge/GitHub Actions-2088FF?style=flat-square&logo=githubactions&logoColor=white">&nbsp;
+<img src="https://img.shields.io/badge/Amazon AWS-232F3E?style=flat-square&logo=amazonaws&logoColor=white">&nbsp;
+<img src="https://img.shields.io/badge/Amazon S3-569A31?style=flat-square&logo=amazons3&logoColor=white">&nbsp;
+<img src="https://img.shields.io/badge/Amazon EC2-FF9900?style=flat-square&logo=amazonec2&logoColor=white">&nbsp;
+<img src="https://img.shields.io/badge/Amazon CodeDeploy-569A31?style=flat-square&logo=&logoColor=white">&nbsp;
+<img src="https://img.shields.io/badge/Amazon RDS-527FFF?style=flat-square&logo=amazonrds&logoColor=white">&nbsp;
+<img src="https://img.shields.io/badge/Amazon CloudWatch-FF4F8B?style=flat-square&logo=amazoncloudwatch&logoColor=white">&nbsp;
+<img src="https://img.shields.io/badge/Amazon ELB-005571?style=flat-square&logo=&logoColor=white">&nbsp;
 <br>
 
 **Front**
 
-<img src="https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white"><img src="https://img.shields.io/badge/CSS-1572B6?style=for-the-badge&logo=css3&logoColor=white"><img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black"><img src="https://img.shields.io/badge/Bootstrap-7952B3?style=for-the-badge&logo=bootstrap&logoColor=black">
+<img src="https://img.shields.io/badge/HTML5-E34F26?style=flat-square&logo=html5&logoColor=white">&nbsp;
+<img src="https://img.shields.io/badge/CSS-1572B6?style=flat-square&logo=css3&logoColor=white">&nbsp;
+<img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=flat-square&logo=javascript&logoColor=black">&nbsp;
+<img src="https://img.shields.io/badge/Bootstrap-7952B3?style=flat-square&logo=bootstrap&logoColor=black">
 <br>
 
 **Tool**
 
-<img src="https://img.shields.io/badge/IntelliJ IDEA-000000?style=for-the-badge&logo=IntelliJ IDEA&logoColor=white"><img src="https://img.shields.io/badge/Github-181717?style=for-the-badge&logo=github&logoColor=white"><img src="https://img.shields.io/badge/git-F05032?style=for-the-badge&logo=git&logoColor=white"><img src="https://img.shields.io/badge/Slack-4A154B?style=for-the-badge&logo=Slack&logoColor=white">
+<img src="https://img.shields.io/badge/IntelliJ IDEA-000000?style=flat-square&logo=IntelliJ IDEA&logoColor=white">&nbsp;
+<img src="https://img.shields.io/badge/Github-181717?style=flat-square&logo=github&logoColor=white">&nbsp;
+<img src="https://img.shields.io/badge/git-F05032?style=flat-square&logo=git&logoColor=white">&nbsp;
+<img src="https://img.shields.io/badge/Slack-4A154B?style=flat-square&logo=Slack&logoColor=white">
 <br>
 
 **Crawling**
 
-<img src="https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white"><img src="https://img.shields.io/badge/Selenium-43B02A?style=for-the-badge&logo=selenium&logoColor=white">
+<img src="https://img.shields.io/badge/Python-3776AB?style=flat-square&logo=python&logoColor=white">&nbsp;
+<img src="https://img.shields.io/badge/Selenium-43B02A?style=flat-square&logo=selenium&logoColor=white">
 <br>
 
 ###### 기술도입배경은 발표보고서에 상세히 기록되어 있습니다.
@@ -91,7 +115,24 @@
 - 최초 검색 속도 : **0.1초 ~10초**(데이터 차지량에 따른 차이 발생)
 - 캐싱 이후 검색 속도 : **0.001초 이내**
 
-<br><br>
+<br>
+
+## 🎯 성능 개선
+
+1. [💿 DB 최적화 - 여행 상품 데이터 조회 속도 개선](https://www.notion.so/power-ranzor/MVP-d338ce51977c42b7b0daa2340cae2167?pvs=4#f6feb182c86b490692fa6b3095999112)
+2. [📀 DB 최적화 - 여행 상품 검색 속도 개선](https://www.notion.so/power-ranzor/MVP-d338ce51977c42b7b0daa2340cae2167?pvs=4#93501bec5c214132b51168bb88930678)
+3. [🚀 레디스 캐싱](https://www.notion.so/power-ranzor/MVP-d338ce51977c42b7b0daa2340cae2167?pvs=4#040b0317740048fb9f37843bb5862a3c)
+4. [🛣️ 부하 분산 - ELB](https://www.notion.so/power-ranzor/MVP-d338ce51977c42b7b0daa2340cae2167?pvs=4#f33d6692d229425dac1a7ad20051f7b7)
+
+<br>
+
+## 🚜 nGrinder 테스트 코드
+
+* `groovy` 언어로 작성
+* HTTP GET, POST 요청
+* 테스트 코드 보러가기 → [Tour-Ranger-Test-Runner](https://github.com/Tour-Ranger/Tour-Ranger-Test-Runner/tree/main/src/test/groovy)
+
+<br>
 
 ## 💥 트러블 슈팅
 
@@ -319,14 +360,6 @@ sudo dd if=/dev/zero of=/swapfile bs=128M count=16
 
 <br>
 
-## 🎯 성능 개선
-
-1. [💿 DB 최적화 - 여행 상품 데이터 조회 속도 개선](https://www.notion.so/power-ranzor/MVP-d338ce51977c42b7b0daa2340cae2167?pvs=4#f6feb182c86b490692fa6b3095999112)
-2. [📀 DB 최적화 - 여행 상품 검색 속도 개선](https://www.notion.so/power-ranzor/MVP-d338ce51977c42b7b0daa2340cae2167?pvs=4#93501bec5c214132b51168bb88930678)
-3. [🚀 레디스 캐싱](https://www.notion.so/power-ranzor/MVP-d338ce51977c42b7b0daa2340cae2167?pvs=4#040b0317740048fb9f37843bb5862a3c)
-4. [🛣️ 부하 분산 - ELB](https://www.notion.so/power-ranzor/MVP-d338ce51977c42b7b0daa2340cae2167?pvs=4#f33d6692d229425dac1a7ad20051f7b7)
-
-<br>
 
 ## 📈 추가로 개선 가능한 점
 
@@ -343,14 +376,6 @@ sudo dd if=/dev/zero of=/swapfile bs=128M count=16
 
 <br>
 
-## 🚜 nGrinder 테스트 코드
-
-* `groovy` 언어로 작성
-* HTTP GET, POST 요청
-* 테스트 코드 보러가기 → [Tour-Ranger-Test-Runner](https://github.com/Tour-Ranger/Tour-Ranger-Test-Runner/tree/main/src/test/groovy)
-
-<br>
-
 ## 🤝 파워레인조 Project Members
 
 <img src="https://github.com/Tour-Ranger/Tour-Ranger-Back/assets/130378232/7a61f6bf-f7a6-4700-901a-89578bfa352e" width=500px>
@@ -363,4 +388,3 @@ sudo dd if=/dev/zero of=/swapfile bs=128M count=16
 |표지수|https://github.com/JisooPyo|
 
 <br>
-
