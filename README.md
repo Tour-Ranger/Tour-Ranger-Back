@@ -346,6 +346,14 @@ sudo dd if=/dev/zero of=/swapfile bs=128M count=16
 
 <br>
 
+## 🚜 nGrinder 테스트 코드
+
+* `groovy` 언어로 작성
+* HTTP GET, POST 요청
+* 테스트 코드 보러가기 -> [Tour-Ranger-Test-Runner](https://github.com/Tour-Ranger/Tour-Ranger-Test-Runner/tree/main/src/test/groovy)
+
+<br>
+
 ## 🤝 파워레인조 Project Members
 
 <img src="https://github.com/Tour-Ranger/Tour-Ranger-Back/assets/130378232/7a61f6bf-f7a6-4700-901a-89578bfa352e" width=500px>
