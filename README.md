@@ -312,9 +312,12 @@ sudo dd if=/dev/zero of=/swapfile bs=128M count=16
 
 <br>
 
+
+[AWS 배포 서버 중단](https://www.notion.so/power-ranzor/MVP-d338ce51977c42b7b0daa2340cae2167?pvs=4#c26d34d0b04240c392b8c036760da6b0)
+
 ## 성능 개선
 
-
+성능 개선
 
 <br>
 
