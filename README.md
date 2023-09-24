@@ -154,8 +154,9 @@
 > 
 > 개선 : Full-Text index(전문 검색) 사용
 
+* 1,000만 건 데이터 중 검색 키워드별 데이터 차지량
+![image](https://github.com/Tour-Ranger/Tour-Ranger-Back/assets/131952511/994396ef-791c-4642-8750-626fa65d0eb5)
 * LIKE문과 FullText 조회 속도
-
 ![image](https://github.com/Tour-Ranger/Tour-Ranger-Back/assets/130378232/633fb021-a957-4195-bfbe-2ea3293ffbe1)
 
 > 개선 결과 : 검색 키워드에 대해 조회 속도 개선. 단, 데이터량을 많이 차지할수록 FullText 인덱스의 성능이 저하됨
@@ -415,7 +416,7 @@ public class AsyncConfig {
 
 * 세션 불일치 해결 방안
   - **`Sticky Session`** : 세션이 유지되는 동안 동일한 서버에만 요청을 날리는 방식
-  - **`**Session Clustering`** : 모든 세션 저장소에 세션 객체를 복제하여 세션 불일치 문제를 해결하는 방식
+  - **`Session Clustering`** : 모든 세션 저장소에 세션 객체를 복제하여 세션 불일치 문제를 해결하는 방식
     ⇒ 트래픽이 더 증가할 가능성이 있기 때문에 짧은 시간 동안 트래픽을 견뎌내야 하는 우리의 서비스와는 맞지 않는다.
   - **`세션 스토리지 분리 방식`** : 세션 스토리지를 하나로 분리해 놓으면 트래픽을 증가 시키지 않고, 세션의 불일치 문제도 해결할 수 있다.
 
