@@ -6,7 +6,7 @@
 
 ### 🔰 너의 여행을 지켜줄게
 
-프로젝트 기간 : 2023/8/16 ~ 2023/09/18
+프로젝트 기간 : 2023/08/16 ~ 2023/09/18
 
 여행 상품 주문 서비스
 
@@ -88,7 +88,7 @@
 <img src="https://img.shields.io/badge/Selenium-43B02A?style=flat-square&logo=selenium&logoColor=white">
 <br>
 
-###### 기술도입배경은 발표보고서에 상세히 기록되어 있습니다.
+###### 기술도입배경이 궁금하다면 [이 링크](https://www.notion.so/power-ranzor/MVP-d338ce51977c42b7b0daa2340cae2167?pvs=4#f5aa96e003764fc5ab63ba5c8541aaf8)를 클릭해주세요!
 
 <br>
 
@@ -108,7 +108,7 @@
 📚 **상품 조회속도**
 
 - 여행상품 데이터 1,000만 건 누적 후
-- 페이지네이션 상품 조회 속도 : **0.1초 이내**
+  - 페이지네이션 상품 조회 속도 : **0.1초 이내**
 
 **🔎 검색 속도**
 
@@ -119,10 +119,126 @@
 
 ## 🎯 성능 개선
 
-1. [💿 DB 최적화 - 여행 상품 데이터 조회 속도 개선](https://www.notion.so/power-ranzor/MVP-d338ce51977c42b7b0daa2340cae2167?pvs=4#f6feb182c86b490692fa6b3095999112)
-2. [📀 DB 최적화 - 여행 상품 검색 속도 개선](https://www.notion.so/power-ranzor/MVP-d338ce51977c42b7b0daa2340cae2167?pvs=4#93501bec5c214132b51168bb88930678)
-3. [🚀 레디스 캐싱](https://www.notion.so/power-ranzor/MVP-d338ce51977c42b7b0daa2340cae2167?pvs=4#040b0317740048fb9f37843bb5862a3c)
-4. [🛣️ 부하 분산 - ELB](https://www.notion.so/power-ranzor/MVP-d338ce51977c42b7b0daa2340cae2167?pvs=4#f33d6692d229425dac1a7ad20051f7b7)
+###### 토글을 누르면 개선점을 확인할 수 있습니다!
+
+<details>
+<summary>1. 💿 DB 최적화 - 여행 상품 데이터 조회 속도 개선</summary>
+
+<br>
+
+> 문제점 : 여행 상품 데이터 증가에 따른 메인 페이지 속도 저하
+> 
+> 개선 : 커서 기반 페이지네이션 적용
+
+|Offset-based Pagination(개선 전)|Cursor-based Pagination(개선 후)|
+|---|---|
+|51초 소요|0.08초 소요|
+|![image](https://github.com/Tour-Ranger/Tour-Ranger-Back/assets/130378232/9c141f38-eadd-406a-b142-be21bf377cf8)|![image](https://github.com/Tour-Ranger/Tour-Ranger-Back/assets/130378232/be970622-4a06-4d5c-90d3-bcc236edd259)|
+
+> 개선 결과 : 51초 -> 0.1초 이내로 조회 속도 개선
+
+[DB 최적화 - 여행 상품 데이터 조회 속도 개선 노션 링크](https://www.notion.so/power-ranzor/MVP-d338ce51977c42b7b0daa2340cae2167?pvs=4#f6feb182c86b490692fa6b3095999112)
+
+<br>
+
+---
+
+</details>
+
+<details>
+<summary>2. 📀 DB 최적화 - 여행 상품 검색 속도 개선</summary>
+
+<br>
+
+> 문제점 : LIKE문을 통한 검색 속도 지연 (약 10초)
+> 
+> 개선 : Full-Text index(전문 검색) 사용
+
+* LIKE문과 FullText 조회 속도
+
+![image](https://github.com/Tour-Ranger/Tour-Ranger-Back/assets/130378232/633fb021-a957-4195-bfbe-2ea3293ffbe1)
+
+> 개선 결과 : 검색 키워드에 대해 조회 속도 개선. 단, 데이터량을 많이 차지할수록 FullText 인덱스의 성능이 저하됨
+
+[DB 최적화 - 여행 상품 검색 속도 개선 노션 링크](https://www.notion.so/power-ranzor/MVP-d338ce51977c42b7b0daa2340cae2167?pvs=4#93501bec5c214132b51168bb88930678)
+
+<br>
+
+---
+
+</details>
+
+<details>
+<summary>3. 🚀 레디스 캐싱</summary>
+
+<br>
+
+> 문제점 : 자주 검색되는 데이터에 좀 더 빠른 접근 필요
+> 
+> 개선 방법 : 검색 기능에 Redis 캐싱 적용
+
+|캐싱 적용 전|캐식 적용 후|
+|---|---|
+|![image](https://github.com/Tour-Ranger/Tour-Ranger-Back/assets/130378232/9bdded1f-039c-4ab0-b741-29a901643349)|![image](https://github.com/Tour-Ranger/Tour-Ranger-Back/assets/130378232/ef42f9ee-dada-4e36-8f71-4c6170d8a442)|
+
+> 개선 결과 : `나트랑 검색` 속도 11.69s -> 6.4ms
+
+[레디스 캐싱 노션 링크](https://www.notion.so/power-ranzor/MVP-d338ce51977c42b7b0daa2340cae2167?pvs=4#040b0317740048fb9f37843bb5862a3c)
+
+<br>
+
+---
+
+</details>
+
+<details>
+<summary>4. 🛣️ 부하 분산 - ELB</summary>
+
+<br>
+
+> 문제점 : 가상 사용자 1,000명에 대한 부하테스트를 통과하지 못함
+
+> 개선 : ELB 도입으로 부하 분산
+
+* 테스트 케이스
+
+  * PK ID 값을 사용하여 상품 상세 페이지 조회
+  * HTTP GET 요청
+  * AWS EC2 환경에서 테스트 (원격)
+  * timeout `3초` 설정(3초 초과 시 error처리)
+
+<br>
+
+* 테스트 실행 환경
+
+||원격  서버(배포 서버)|nGrinder 서버|
+|---|---|---|
+|인스턴스 타입|ec2.t3a.xlarge|ec2.m5zn.large|
+|CPU|4 vCPUs|2 vCPUs|
+|RAM|16GB|8GB|
+|Storage|8 GiB, EBS, 범용 SSD(gp3)|8 GiB, EBS, 범용 SSD(gp3)|
+|RDS(DB)|db.t3.xlarge(4 vCPUs, 16 GiB Mems)|x|
+
+<br>
+
+* 테스트 설정 : 15분간 1,000~10,000명의 가상 사용자로 상품 상세 페이지를 조회하는 GET요청 부하 테스트 수행
+
+|Vuser: 1,000|Vuser: 10,000|
+|---|---|
+|![image](https://github.com/Tour-Ranger/Tour-Ranger-Back/assets/130378232/baf0a08b-05d1-400f-8668-911c41f39eb0)|![image](https://github.com/Tour-Ranger/Tour-Ranger-Back/assets/130378232/822b5b9a-8cd4-42da-a64e-22c00f35bfc9)|
+|![image](https://github.com/Tour-Ranger/Tour-Ranger-Back/assets/130378232/7cec6f7e-dae1-4245-98b4-cf8733f90b64)|![image](https://github.com/Tour-Ranger/Tour-Ranger-Back/assets/130378232/dce165b4-ca7f-4e60-9a11-09ad0c077a4c)|
+
+<br>
+
+> 개선 결과 : 이전보다 짧은 timeout 제한에도 불구하고, 에러가 완전히 일어나지 않는 모습을 보이고 있다. 특히, Vuser를 10,000으로 설정했을 때의 TPS 그래프를 보면, 그래프는 전체적으로 우상향하고 있는 형태를 띄고 있다. 이는 부하 상황에서 트래픽을 더 효율적으로 처리했다는 의미로, ELB 사용을 통해 성능이 향상되었다고 해석할 수 있다.
+
+[부하 분산 - ELB 노션 링크](https://www.notion.so/power-ranzor/MVP-d338ce51977c42b7b0daa2340cae2167?pvs=4#f33d6692d229425dac1a7ad20051f7b7)
+
+<br>
+
+---
+
+</details>
 
 <br>
 
@@ -135,6 +251,8 @@
 <br>
 
 ## 💥 트러블 슈팅
+
+###### 토글을 누르면 해당 트러블 슈팅의 내용을 확인하실 수 있습니다.
 
 <details>
 <summary>📚 1. SQL : 검색 시 사용자가 선택한 조건의 조합에 따른 쿼리 적용 방법 고민 </summary>
