@@ -178,7 +178,7 @@
 > 
 > 개선 방법 : 검색 기능에 Redis 캐싱 적용
 
-|캐싱 적용 전|캐식 적용 후|
+|캐싱 적용 전|캐싱 적용 후|
 |---|---|
 |![image](https://github.com/Tour-Ranger/Tour-Ranger-Back/assets/130378232/9bdded1f-039c-4ab0-b741-29a901643349)|![image](https://github.com/Tour-Ranger/Tour-Ranger-Back/assets/130378232/ef42f9ee-dada-4e36-8f71-4c6170d8a442)|
 
