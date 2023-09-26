@@ -8,6 +8,8 @@
 
 프로젝트 기간 : 2023/08/16 ~ 2023/09/18
 
+**👑 스파르타 내일배움캠프 최종 프로젝트: 최우수 프로젝트 선정 👑**
+
 여행 상품 주문 서비스
 
 1. 대량의 트래픽이 발생할 것으로 예상되는 이벤트 여행 상품(초특가 타임딜) 페이지
@@ -21,6 +23,8 @@
 ### [📚 파워레인조 Team Notion 보러가기](https://power-ranzor.notion.site/0c0bd4b042de406e96b3e42b0dde3460?pvs=4)
 
 ### [📄 발표 보고서 보러가기](https://power-ranzor.notion.site/MVP-d338ce51977c42b7b0daa2340cae2167?pvs=4)
+
+### [🎬 발표 영상 보러가기](https://www.youtube.com/watch?v=bXfGMT6MlEM)
 
 <br>
 
@@ -88,7 +92,7 @@
 <img src="https://img.shields.io/badge/Selenium-43B02A?style=flat-square&logo=selenium&logoColor=white">
 <br>
 
-###### 기술도입배경이 궁금하다면 [이 링크](https://www.notion.so/power-ranzor/MVP-d338ce51977c42b7b0daa2340cae2167?pvs=4#f5aa96e003764fc5ab63ba5c8541aaf8)를 클릭해주세요!
+###### 기술도입배경이 궁금하다면 [이 링크](https://power-ranzor.notion.site/MVP-d338ce51977c42b7b0daa2340cae2167#f5aa96e003764fc5ab63ba5c8541aaf8)를 클릭해주세요!
 
 <br>
 
@@ -137,7 +141,7 @@
 
 > 개선 결과 : 51초 -> 0.1초 이내로 조회 속도 개선
 
-[DB 최적화 - 여행 상품 데이터 조회 속도 개선 노션 링크](https://www.notion.so/power-ranzor/MVP-d338ce51977c42b7b0daa2340cae2167?pvs=4#f6feb182c86b490692fa6b3095999112)
+[DB 최적화 - 여행 상품 데이터 조회 속도 개선 노션 링크](https://power-ranzor.notion.site/MVP-d338ce51977c42b7b0daa2340cae2167#f6feb182c86b490692fa6b3095999112)
 
 <br>
 
@@ -161,7 +165,7 @@
 
 > 개선 결과 : 검색 키워드에 대해 조회 속도 개선. 단, 데이터량을 많이 차지할수록 FullText 인덱스의 성능이 저하됨
 
-[DB 최적화 - 여행 상품 검색 속도 개선 노션 링크](https://www.notion.so/power-ranzor/MVP-d338ce51977c42b7b0daa2340cae2167?pvs=4#93501bec5c214132b51168bb88930678)
+[DB 최적화 - 여행 상품 검색 속도 개선 노션 링크](https://power-ranzor.notion.site/MVP-d338ce51977c42b7b0daa2340cae2167#93501bec5c214132b51168bb88930678)
 
 <br>
 
@@ -178,13 +182,13 @@
 > 
 > 개선 방법 : 검색 기능에 Redis 캐싱 적용
 
-|캐싱 적용 전|캐식 적용 후|
+|캐싱 적용 전|캐싱 적용 후|
 |---|---|
 |![image](https://github.com/Tour-Ranger/Tour-Ranger-Back/assets/130378232/9bdded1f-039c-4ab0-b741-29a901643349)|![image](https://github.com/Tour-Ranger/Tour-Ranger-Back/assets/130378232/ef42f9ee-dada-4e36-8f71-4c6170d8a442)|
 
 > 개선 결과 : `나트랑 검색` 속도 11.69s -> 6.4ms
 
-[레디스 캐싱 노션 링크](https://www.notion.so/power-ranzor/MVP-d338ce51977c42b7b0daa2340cae2167?pvs=4#040b0317740048fb9f37843bb5862a3c)
+[레디스 캐싱 노션 링크](https://power-ranzor.notion.site/MVP-d338ce51977c42b7b0daa2340cae2167#040b0317740048fb9f37843bb5862a3c)
 
 <br>
 
@@ -233,7 +237,7 @@
 
 > 개선 결과 : 이전보다 짧은 timeout 제한에도 불구하고, 에러가 완전히 일어나지 않는 모습을 보이고 있다. 특히, Vuser를 10,000으로 설정했을 때의 TPS 그래프를 보면, 그래프는 전체적으로 우상향하고 있는 형태를 띄고 있다. 이는 부하 상황에서 트래픽을 더 효율적으로 처리했다는 의미로, ELB 사용을 통해 성능이 향상되었다고 해석할 수 있다.
 
-[부하 분산 - ELB 노션 링크](https://www.notion.so/power-ranzor/MVP-d338ce51977c42b7b0daa2340cae2167?pvs=4#f33d6692d229425dac1a7ad20051f7b7)
+[부하 분산 - ELB 노션 링크](https://power-ranzor.notion.site/MVP-d338ce51977c42b7b0daa2340cae2167#f33d6692d229425dac1a7ad20051f7b7)
 
 <br>
 
