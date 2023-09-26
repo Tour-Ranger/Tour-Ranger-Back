@@ -8,6 +8,8 @@
 
 프로젝트 기간 : 2023/08/16 ~ 2023/09/18
 
+**👑 스파르타 내일배움캠프 최종 프로젝트: 최우수 프로젝트 선정 👑**
+
 여행 상품 주문 서비스
 
 1. 대량의 트래픽이 발생할 것으로 예상되는 이벤트 여행 상품(초특가 타임딜) 페이지
@@ -21,6 +23,8 @@
 ### [📚 파워레인조 Team Notion 보러가기](https://power-ranzor.notion.site/0c0bd4b042de406e96b3e42b0dde3460?pvs=4)
 
 ### [📄 발표 보고서 보러가기](https://power-ranzor.notion.site/MVP-d338ce51977c42b7b0daa2340cae2167?pvs=4)
+
+### [🎬 발표 영상 보러가기](https://www.youtube.com/watch?v=bXfGMT6MlEM)
 
 <br>
 
